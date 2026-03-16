@@ -10,20 +10,18 @@ use App\Http\Controllers\DashboardController;
 
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
     Route::get('/cenas', [HomeController::class, 'cenas'])->name('home.cenas');
     Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.showLogin');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/hr', [HRController::class, 'index'])->name('hr.index');
-    
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // create shit
     Route::post('/hr/company', [HRController::class, 'createCompany'])->name('hr.company.create');
@@ -33,5 +31,5 @@ Route::middleware(['auth'])->group(function () {
 
     // assing shit
     Route::post('/hr/assignUser', [HRController::class, 'assignUserInternship'])->name('hr.user.assignUser');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
 });

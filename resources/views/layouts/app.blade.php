@@ -20,8 +20,10 @@
             {{ session('success') }}
         </div>
     @endif
-
-    @yield('section')
+<div class="overflow-hidden bg-white shadow-sm rounded-lg">
+   @yield('section')
+</div>
+    
 
   </body>
 </html>

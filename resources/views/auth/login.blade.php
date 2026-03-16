@@ -3,6 +3,13 @@
 @section('section')
 <body class="bg-gray-50 font-sans flex flex-col min-h-screen">
 
+
+    <div class=" w-fit justify-center bg-blue-600 hover:bg-blue-700 text-white p-2 px-3 rounded-lg font-medium transition">
+        <a href="{{ route('home.index') }}" class="flex items-center gap-2">
+            <x-fas-arrow-left-long  class="w-6 h-6" /> Voltar
+        </a>
+    </div>
+
     <div class="flex-1 flex items-center justify-center py-16 px-4">
         <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
 
