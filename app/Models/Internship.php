@@ -35,26 +35,14 @@ class Internship extends Model
 
     public function students()
     {
-        return $this->hasManyThrough(
-            User::class,
-            UserInternship::class,
-            'internship_id',
-            'id',
-            'id',
-            'student_id'
-        )->students();
+        return $this->belongsToMany(User::class, 'user_internships', 'internship_id', 'user_id')
+            ->wherePivot('role', 'student');
     }
 
     public function supervisors()
     {
-        return $this->hasManyThrough(
-            User::class,
-            UserInternship::class,
-            'internship_id',
-            'id',
-            'id',
-            'supervisor_id'
-        )->supervisors();
+        return $this->belongsToMany(User::class, 'user_internships', 'internship_id', 'user_id')
+            ->wherePivot('role', 'supervisor');
     }
 
     public function hours()

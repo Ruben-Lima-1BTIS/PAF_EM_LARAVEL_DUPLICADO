@@ -69,6 +69,11 @@ class User extends Authenticatable
 
     public function scopeCoordinators($query)
     {
-        return $query->where('role', 'coordinators');
+        return $query->where('role', 'coordinator');
     }
+
+    public function internships()
+{
+    return $this->belongsToMany(Internship::class, 'user_internships', 'user_id', 'internship_id');
+}
 }

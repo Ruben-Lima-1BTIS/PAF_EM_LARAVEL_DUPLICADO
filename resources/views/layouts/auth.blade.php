@@ -21,13 +21,13 @@
             ],
             [
                 'name' => 'Log Hours',
-                'route' => 'dashboard.index',
+                'route' => 'student.hours',
                 'icon' => 'clock',
                 'roles' => ['student']
             ],
             [
                 'name' => 'Submit Reports',
-                'route' => 'dashboard.index',
+                'route' => 'student.reports',
                 'icon' => 'file-arrow-up',
                 'roles' => ['student']
             ],
@@ -65,78 +65,68 @@
     ];
 @endphp
 
-
-<!-- FIXED NAVBAR -->
 <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-
-            <!-- LOGO -->
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 text-white font-bold text-xl px-3 py-1">IH</div>
-                <span class="text-xl font-bold text-gray-900">InternHub</span>
+    <div class="flex justify-between items-center h-16 px-4">
+        
+        <a href="{{route('dashboard.index')}}">
+            <div class="flex items-center space-x-3 h-16">
+                <div class="bg-blue-600 text-white font-bold text-xl px-3 py-1">
+                    IH
+                </div>
+                <span class="text-xl font-bold text-gray-900">
+                    InternHub
+                </span>
             </div>
+        </a>
 
-            <!-- USER DROPDOWN -->
-            <!-- USER DROPDOWN -->
-<div class="relative flex items-center">
-    <button 
-        onclick="document.getElementById('userDropdown').classList.toggle('hidden')"
-        class="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 transition"
-    >
-        <span class="font-medium text-gray-800">
-            {{ auth()->user()->name }}
-        </span>
+        <div class="relative flex items-center">
+            <button 
+                onclick="document.getElementById('userDropdown').classList.toggle('hidden')"
+                class="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 transition"
+            >
+                <span class="font-medium text-gray-800">
+                    {{ auth()->user()->name }}
+                </span>
 
-        <x-dynamic-component 
-            :component="'fas-chevron-down'" 
-            class="w-3 h-3 text-gray-600" 
-        />
-    </button>
+                <x-dynamic-component 
+                    :component="'fas-chevron-down'" 
+                    class="w-3 h-3 text-gray-600" 
+                />
+            </button>
 
-    <!-- DROPDOWN MENU -->
-        <div 
+            <div 
                 id="userDropdown"
                 class="hidden absolute right-0 top-full mt-1 w-44 bg-white border border-gray-200 shadow-lg z-50"
             >
                 <a href="{{ route('dashboard.index') }}"
-                class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-
+                   class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200">
                     <x-dynamic-component 
                         :component="'fas-gear'" 
                         class="w-4 h-4 text-gray-600" 
                     />
-
                     <span>Settings</span>
                 </a>
 
                 <form method="POST" action="{{ route('auth.logout') }}">
                     @csrf
-                    <button 
+                    <button
                         type="submit"
-                        class="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        class="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 
+                            hover:bg-gray-200 hover:text-gray-900 transition-colors duration-200 ease-in-out cursor-pointer"
                     >
-                        <x-dynamic-component 
-                            :component="'fas-right-from-bracket'" 
-                            class="w-4 h-4 text-gray-600" 
+                        <x-dynamic-component
+                            :component="'fas-right-from-bracket'"
+                            class="w-4 h-4 text-gray-600 group-hover:text-gray-900 transition-colors duration-200"
                         />
-
                         <span>Logout</span>
                     </button>
                 </form>
-        </div>
-    </div>
-
-
+            </div>
         </div>
     </div>
 </nav>
 
-
-<!-- FIXED SIDEBAR + SCROLLABLE CONTENT WRAPPER -->
 <div class="flex pt-16">
-
-    <!-- FIXED SIDEBAR -->
     <aside class="w-64 bg-white border-r border-gray-200 p-4 h-[calc(100vh-4rem)] fixed left-0 top-16 overflow-y-auto">
         <nav class="space-y-6">
             @foreach($options as $group => $links)
@@ -150,7 +140,7 @@
                             @if(in_array(auth()->user()->role, $link['roles']))
                                 <a href="{{ route($link['route']) }}"
                                    class="flex items-center px-3 py-2 text-sm font-medium 
-                                          text-gray-700 hover:bg-gray-100 hover:text-gray-900 
+                                          text-gray-700 hover:bg-gray-200 hover:text-gray-900 
                                           transition group">
 
                                     @if($link['icon'])
@@ -172,15 +162,12 @@
         </nav>
     </aside>
 
-    <!-- SCROLLABLE MAIN CONTENT -->
     <main class="ml-64 w-full bg-gray-50 p-6 h-[calc(100vh-4rem)] overflow-y-auto">
         @yield('content')
     </main>
 
 </div>
 
-
-<!-- CLOSE DROPDOWN ON CLICK OUTSIDE -->
 <script>
 document.addEventListener('click', function(e) {
     const dropdown = document.getElementById('userDropdown');

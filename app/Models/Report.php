@@ -6,9 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
+    protected $fillable = [
+        'student_id',
+        'internship_id',
+        'file_path',
+        'original_name',
+        'status',
+        'supervisor_reviewed_by',
+    ];
+
+    public $timestamps = false;
+
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(User::class, 'student_id')
+                    ->where('role', 'student');
     }
 
     public function internship()
@@ -18,6 +30,7 @@ class Report extends Model
 
     public function reviewer()
     {
-        return $this->belongsTo(Supervisor::class, 'supervisor_reviewed_by');
+        return $this->belongsTo(User::class, 'supervisor_reviewed_by')
+                    ->where('role', 'supervisor');
     }
 }

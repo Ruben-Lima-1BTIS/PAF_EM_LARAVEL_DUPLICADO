@@ -20,7 +20,7 @@
     value="{{ old($name, $value) }}"
     placeholder="{{ $placeholder }}"
     {{ $required ? 'required' : '' }}
-    {{ $attributes->merge(['class' => 'border p-2 w-full mb-4']) }}
+    {{ $attributes->merge(['class' => 'border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-teal-500 focus:outline-none']) }}
 >
 
 @error($name)

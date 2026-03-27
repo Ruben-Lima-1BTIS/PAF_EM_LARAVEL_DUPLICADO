@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Hour extends Model
 {
     protected $fillable = [
+        'date',
+        'start_time',
+        'end_time',
         'student_id',
         'internship_id',
-        'supervisor_reviewed_by',
-        'hours',
-        'date',
-        'status',
     ];
+
+
+    public $timestamps = false;
 
     public function student()
     {
