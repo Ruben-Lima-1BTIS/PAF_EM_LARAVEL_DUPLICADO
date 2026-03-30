@@ -57,7 +57,7 @@
             ],
             [
                 'name' => 'Chat Messages',
-                'route' => 'dashboard.index',
+                'route' => 'messages.index',
                 'icon' => 'message',
                 'roles' => ['student','supervisor','coordinator']
             ],

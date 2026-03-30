@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoghourController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\MessageController;
 
 // ---------- PUBLIC GUEST ----------
 Route::middleware(['guest'])->group(function () {
@@ -24,6 +25,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
     // ---------- ADMIN ----------
     Route::middleware('role:admin')->group(function () {

@@ -55,6 +55,26 @@ class User extends Authenticatable
     const ROLE_SUPERVISOR = 'supervisor';
     const ROLE_STUDENT = 'student';
 
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+    
+    public function isCoordinator(): bool
+    {
+        return $this->role === self::ROLE_COORDINATOR;
+    }
+    
+    public function isSupervisor(): bool
+    {
+        return $this->role === self::ROLE_SUPERVISOR;
+    }
+    
+    public function isStudent(): bool
+    {
+        return $this->role === self::ROLE_STUDENT;
+    }
+
     // student relations
 
     public function scopeStudents($query)

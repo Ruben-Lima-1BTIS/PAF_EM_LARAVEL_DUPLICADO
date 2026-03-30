@@ -15,12 +15,18 @@ class LoghourController extends Controller
     {
         $studentId = $request->user()->id;
 
-        $logs = Hour::where('student_id', $studentId)->orderByDesc('date')->get();
+        $logs = Hour::where('student_id', $studentId)
+                    ->orderByDesc('date')
+                    ->get()
+                    ->map(function ($log) {
+                        $start = Carbon::parse($log->start_time);
+                        $end = Carbon::parse($log->end_time);
+                        $log->hours_worked = max($start->floatDiffInHours($end) - 1, 0);
+                        return $log;
+                    });
 
-        $totalHours = $logs->sum(function ($log) {
-            return Carbon::parse($log->start_time)->floatDiffInHours(Carbon::parse($log->end_time));
-        });
-
+        $totalHours = $logs->sum('hours_worked');
+        
         return view('student.hours.index', compact('logs', 'totalHours'));
     }
 
@@ -29,7 +35,9 @@ class LoghourController extends Controller
         $studentId = Auth::id();
         $internshipsIds = UserInternship::where('user_id', $studentId)->pluck('internship_id');
 
-        $internship = Internship::whereIn('id', $internshipsIds)->where('status', 'active')->first();
+        $internship = Internship::whereIn('id', $internshipsIds)
+            ->where('status', 'active')
+            ->first();
 
         $validated = $request->validate([
             'date' => [
@@ -40,6 +48,15 @@ class LoghourController extends Controller
             'start_time' => 'required',
             'end_time' => 'required|after:start_time',
         ]);
+
+        $start = Carbon::parse($validated['start_time']);
+        $end = Carbon::parse($validated['end_time']);
+        $hoursWorked = $start->floatDiffInHours($end) - 1;
+
+        if ($hoursWorked < 4) {
+            return back()->withErrors('As horas logadas devem ser no mínimo 4 horas, descontando 1 hora de almoço.');
+        }
+
         $validated['student_id'] = Auth::id();
         $validated['internship_id'] = $internship->id;
 
