@@ -15,9 +15,9 @@
 @elseif($user->isSupervisor())
     <p>Supervisor dashboard content here</p>
 @elseif($user->isStudent())
-    h1
+    <h1>Aluno</h1>
 @else
-    <p>Unknown role 🤔</p>
+    <p>Unknown role</p> 
 @endif
 
 @endsection

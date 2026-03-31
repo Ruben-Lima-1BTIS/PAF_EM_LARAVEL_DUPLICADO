@@ -57,7 +57,7 @@
     </div>
 
     {{-- Content --}}
-    <div class="overflow-hidden bg-white shadow-sm rounded-lg p-6 m-4">
+    <div class="overflow-hidden bg-white shadow-sm rounded-lg">
         @yield('section')
     </div>
 
