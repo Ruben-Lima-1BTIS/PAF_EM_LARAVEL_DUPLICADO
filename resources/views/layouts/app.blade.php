@@ -25,10 +25,8 @@
             x-init="setTimeout(() => show = false, 3000)"
             class="toast toast--success"
         >
-            <div class="toast__bar"></div>
-
             <div class="toast__icon">
-                <x-dynamic-component :component="'fas-circle-check'" class="w-3.5 h-3.5" />
+                <x-dynamic-component :component="'fas-circle-check'" class="w-4 h-4" />
             </div>
 
             <div class="toast__body">
@@ -57,10 +55,8 @@
             x-init="setTimeout(() => show = false, 4000)"
             class="toast toast--error"
         >
-            <div class="toast__bar"></div>
-
             <div class="toast__icon">
-                <x-dynamic-component :component="'fas-circle-exclamation'" class="w-3.5 h-3.5" />
+                <x-dynamic-component :component="'fas-circle-exclamation'" class="w-4 h-4" />
             </div>
 
             <div class="toast__body">
@@ -84,5 +80,3 @@
 
 </body>
 </html>
-
-
