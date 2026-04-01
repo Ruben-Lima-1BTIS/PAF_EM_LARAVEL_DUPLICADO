@@ -50,10 +50,18 @@ Route::middleware(['auth'])->group(function () {
     });
 
     /*
-    // ---------- COORDINATOR ----------
-    Route::middleware('role:coordinator')->group(function () {
-        Route::get('/myhours', [LoghourController::class, 'index'])->name('student.hours');
-        Route::post('/loghours', [LoghourController::class, 'store'])->name('log.hours');
-    });
+        ---------- COORDINATOR ----------
+        Route::middleware('role:coordinator')->group(function () {
+            // rotas para coordenadores ainda nao criadas
+        });
     */
+    
+    /*
+        ---------- SUPERVISOR ----------
+        Route::middleware('role:supervisor')->group(function () {
+            // rotas para supervisores ainda nao criadas
+        });
+    */
+
+    
 });
