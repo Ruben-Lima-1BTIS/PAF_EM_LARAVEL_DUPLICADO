@@ -19,7 +19,7 @@
         'class' => 'border p-2 w-full mb-4'
     ]) }}
 >
-    <option value="">Seleciona uma opção</option>
+    <option value="">Select an option</option>
 
     @foreach($options as $option)
         <option value="{{ $option['id'] }}">
