@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -10,18 +11,36 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
     .landing-page * { font-family: 'Sora', sans-serif; }
-    .landing-page { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%); min-height: 100vh; }
+    .landing-page { background:#eff6ff; min-height: 100vh; }
     .navbar { background: #ffffff; border-bottom: 1px solid #e5e7eb; }
-    .logo-box { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-weight: 700; font-size: 1.1rem; padding: 0.35rem 0.75rem; border-radius: 0.6rem; }
+    .logo-box { background: #2563eb; color: white; font-weight: 700; font-size: 1.1rem; padding: 0.35rem 0.75rem; border-radius: 0.6rem; }
     .hero-title { font-size: 3rem; font-weight: 700; color: #0f172a; letter-spacing: -0.04em; }
     .hero-subtext { font-size: 1.15rem; color: #475569; max-width: 640px; margin: 1.5rem auto 0;}
-    .btn-primary { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white;padding: 0.85rem 1.75rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); transition: 0.2s ease; display: inline-block;}
+    .btn-primary { background: #2563eb; color: white;padding: 0.85rem 1.75rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); transition: 0.2s ease; display: inline-block;}
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45); }
     .card { background: #ffffff; border-radius: 1rem; border: 1px solid #e5e7eb; padding: 2rem; transition: 0.2s ease; }
     .card:hover { box-shadow: 0 8px 24px rgba(30, 64, 175, 0.12); transform: translateY(-4px); }
     .section-title { font-size: 2rem; font-weight: 700; color: #0f172a; letter-spacing: -0.03em; }
     .section-subtext { font-size: 1rem; color: #475569; margin-top: 0.5rem; }
-    .icon-wrap { width: 50px; height: 50px; border-radius: 0.8rem; background: linear-gradient(135deg, #dbeafe, #bfdbfe); display: flex; align-items: center; justify-content: center; color: #1d4ed8; margin-bottom: 1rem; }
-
+    .icon-wrap { width: 50px; height: 50px; border-radius: 0.8rem; background: #bfdbfe; display: flex; align-items: center; justify-content: center; color: #1d4ed8; margin-bottom: 1rem; }
+    .btn-submit { width: 100%; background: #2563eb; color: white; padding: 0.85rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); transition: 0.2s ease; border: none; cursor: pointer; font-family: 'Sora', sans-serif; }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45); background: #1d4ed8; }
+    .back-link { color: #2563eb; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.4rem; transition: 0.2s; }
+    .back-link:hover { color: #1d4ed8; gap: 0.6rem; }
+    .ih-shell * { font-family: 'Sora', sans-serif; }
+    .ih-topbar { background: #ffffff; border-bottom: 1px solid #e5e7eb; position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 4rem; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; }
+    .ih-logo-box { background: #2563eb; color: white; font-weight: 700; font-size: 1.1rem; padding: 0.35rem 0.75rem; border-radius: 0.6rem; }
+    .ih-brand-name { font-size: 1.15rem; font-weight: 700; color: #0f172a; }
+    .ih-user-btn { display:flex; align-items:center; gap:0.5rem; padding:0.45rem 0.85rem; border-radius:0.6rem; font-weight:500; color:#0f172a; font-size:0.9rem; transition:background 0.15s; cursor:pointer; background:transparent; border:none; }
+    .ih-user-btn:hover { background: #eff6ff; }
+    .ih-dropdown { position:absolute; right:0; top:100%; margin-top:0.5rem; width:11rem; background:#ffffff; border:1px solid #e5e7eb; border-radius:0.75rem; box-shadow:0 8px 24px rgba(30,64,175,0.1); overflow:hidden; z-index:50; }
+    .ih-dropdown-item { display:flex; align-items:center; gap:0.6rem; padding:0.65rem 1rem; font-size:0.85rem; color:#334155; transition:background 0.15s; width:100%; text-align:left; background:transparent; border:none; cursor:pointer; font-family:'Sora',sans-serif; }
+    .ih-dropdown-item:hover { background: #eff6ff; color: #1d4ed8; }
+    .ih-sidebar { width:16rem; background:#ffffff; border-right:1px solid #e5e7eb; padding:1.25rem 0.75rem; position:fixed; left:0; top:4rem; height:calc(100vh - 4rem); overflow-y:auto; }
+    .ih-sidebar-group-label { font-size:0.65rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; padding:0 0.75rem; margin-bottom:0.35rem; }
+    .ih-sidebar-link { display:flex; align-items:center; gap:0.65rem; padding:0.55rem 0.75rem; border-radius:0.6rem; font-size:0.875rem; font-weight:500; color:#475569; transition:background 0.15s,color 0.15s; text-decoration:none; }
+    .ih-sidebar-link:hover { background: #eff6ff; color: #2563eb; }
+    .ih-sidebar-link.active { background: #dbeafe; color: #1d4ed8; }
+    .ih-main { margin-left: 16rem; padding-top: 4rem; min-height: 100vh; background: #eff6ff; }
+    .ih-content { padding: 1.5rem; height: calc(100vh - 4rem); overflow-y: auto; }

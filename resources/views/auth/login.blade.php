@@ -1,36 +1,47 @@
 @extends('layouts.app')
-
 @section('section')
-<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
 
+<div class="landing-page">
 
-    <div class=" w-fit justify-center bg-blue-600 hover:bg-blue-700 text-white p-2 px-3 rounded-lg font-medium transition">
-        <a href="{{ route('home.index') }}" class="flex items-center gap-2">
-            <x-fas-arrow-left-long  class="w-6 h-6" /> Voltar
-        </a>
-    </div>
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="logo-box">IH</div>
+                <span class="text-xl font-bold text-slate-900">InternHub</span>
+            </div>
+            <a href="{{ route('home.index') }}" class="back-link">
+                <x-fas-arrow-left-long class="w-4 h-4" />
+                Back to Home
+            </a>
+        </div>
+    </nav>
 
-    <div class="flex-1 flex items-center justify-center py-16 px-4">
-        <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+    <div class="flex items-center justify-center px-4 py-24">
+        <div class="w-full max-w-md">
 
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">
-                Login
-            </h2>
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Welcome back</h1>
+                <p class="text-slate-500 mt-2 text-sm">Sign in to your InternHub account</p>
+            </div>
 
-            <form action="{{ route('login') }}" method="POST" class="space-y-4">
-                @csrf
+            <div class="card">
+                <form action="{{ route('login') }}" method="POST" class="space-y-4">
+                    @csrf
 
-                <x-input name="email" label="Email" type="email" required />
-                <x-input name="password" label="Password" type="password" required />
+                    <x-input name="email" label="Email" type="email" required />
+                    <x-input name="password" label="Password" type="password" required />
 
-                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition">
-                    Entrar
-                </button>
-            </form>
+                    <button class="btn-submit">
+                        Entrar
+                    </button>
+                </form>
+            </div>
 
         </div>
     </div>
-</body>
+
+</div>
+
 @endsection
  
 {{-- 
