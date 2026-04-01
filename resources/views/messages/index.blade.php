@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for($i=0; $i<5; $i++)
+                            @for($i=0; $i<3; $i++)
                             <tr>
                                 <td>—</td>
                                 <td>Feature in progress</td>
@@ -52,11 +52,13 @@
                 </div>
 
                 <div class="chat-container mt-6">
-                    <div class="chat-bubble admin">Hi! 👋 This messaging feature will be available soon.</div>
-                    <div class="chat-bubble user">Can’t wait to use it!</div>
-                    <div class="chat-bubble admin">We’re working hard to get it ready for you.</div>
-                    <div class="chat-bubble user">Alright, I’ll be patient 😏</div>
-                    <div class="chat-bubble admin">Thanks for understanding! 🚀</div>
+                    <div class="chat-bubble admin">Hiiiiiiii 😭👋 soooo ummm… this messaging feature is like… still in the oven 😳🍞</div>
+                    <div class="chat-bubble user">OMG 😩 I’ve been waiting so long I’m basically a fossil now 🦴✨</div>
+                    <div class="chat-bubble admin">NOOO 😭 Not my favorite user turning into an ancient artifact… I can’t emotionally handle that 😭👉👈</div>
+                    <div class="chat-bubble user">Well maybe if you worked faster I wouldn’t be decomposing rn 😏💅</div>
+                    <div class="chat-bubble admin">STOPPP 😳 I’m literally overheating… like the servers are fanning me with their lil fans rn 💻🌀</div>
+                    <div class="chat-bubble user">Ugh fine… I’ll wait… but only because you’re kinda my toxic fave 😩❤️‍🔥</div>
+                    <div class="chat-bubble admin">AHHH 😭 Not you calling me toxic… I’m literally kicking my feet, twirling my Ethernet cable, and giggling rn 😳💞</div>
                 </div>
 
             </div>
