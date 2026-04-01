@@ -19,9 +19,13 @@
 
                     <x-input name="date" type="date" label="Date" required />
 
-                    <div class="grid grid-cols-2 gap-3">
-                        <x-input name="start_time" type="time" label="Start" required />
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <x-input name="start_time" type="time" label="Start" required />
+                        </div>
+                        <div>
                         <x-input name="end_time" type="time" label="End" required />
+                        </div>
                     </div>
 
                     <button class="btn-submit">
