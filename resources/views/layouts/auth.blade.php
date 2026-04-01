@@ -138,15 +138,4 @@
 
 </div>
 
-<script>
-document.addEventListener('click', function(e) {
-    const dropdown = document.getElementById('userDropdown');
-    const button = dropdown.previousElementSibling;
-
-    if (!button.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add('hidden');
-    }
-});
-</script>
-
 @endsection

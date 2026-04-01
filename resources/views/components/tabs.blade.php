@@ -1,6 +1,6 @@
 @props([
-    'tabs' => [],      // ['id' => 'Label']
-    'default' => null, // default open tab id
+    'tabs' => [],
+    'default' => null,
 ])
 
 <div class="border-b mb-6">
@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const contents = document.querySelectorAll('.tab-content');
     let activeTab = "{{ $default }}";
 
-    // OPEN DEFAULT TAB
     const defaultBtn = document.querySelector(`[data-target="{{ $default }}"]`);
     const defaultContent = document.getElementById("{{ $default }}");
 
@@ -42,14 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const target = btn.dataset.target;
             const content = document.getElementById(target);
 
-            // If clicking the active tab → DO NOTHING (never close)
             if (activeTab === target) return;
 
-            // Reset all
             tabs.forEach(t => t.classList.remove('text-black', 'border-blue-600', 'bg-gray-100'));
             contents.forEach(c => c.classList.add('hidden'));
 
-            // Activate clicked
             btn.classList.add('text-black', 'border-blue-600', 'bg-gray-100');
             content.classList.remove('hidden');
 
