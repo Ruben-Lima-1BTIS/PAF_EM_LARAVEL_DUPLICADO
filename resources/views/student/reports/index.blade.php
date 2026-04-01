@@ -126,4 +126,18 @@
 </div>
 </div>
 
+<!-- Tive de voltar a por o javascript aqui pq no app.js nao funcionava -->
+
+<script>
+function updateFileName(input) {
+    const display = document.getElementById('file-name-display');
+    if (input.files && input.files[0]) {
+        display.textContent = '📎 ' + input.files[0].name;
+        display.style.display = 'block';
+    } else {
+        display.style.display = 'none';
+    }
+}
+</script>
+
 @endsection
