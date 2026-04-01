@@ -8,7 +8,6 @@ use App\Models\ClassModel;
 use App\Models\Internship;
 use App\Models\User;
 use App\Models\StudentInternship;
-use App\Models\SupervisorInternship;
 use App\Models\UserClass;
 use App\Models\UserInternship;
 
@@ -87,8 +86,6 @@ class HRController extends Controller
         $validated2 = $request->validate([
             'user_id' => 'nullable|integer|max:50',
         ]);
-
-        
 
         try{
             $class = ClassModel::create($validated);
@@ -203,28 +200,4 @@ class HRController extends Controller
         return back()->with('success', 'Utilizador atribuído ao estágio com sucesso!');
     }
 
-
-    public function assignStudent(Request $request)
-    {
-        $validated = $request->validate([
-            'student_id' => 'required|exists:users,id',
-            'internship_id' => 'required|exists:internships,id',
-        ]);
-
-        $exists = StudentInternship::where('student_id', $validated['student_id'])
-            ->where('internship_id', $validated['internship_id'])
-            ->exists();
-
-        if ($exists) {
-            return back()->with('error', 'Este aluno já está atribuído a este estágio.');
-        }
-
-        try {
-            StudentInternship::create($validated);
-        } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage());
-        }
-
-        return back()->with('success', 'Aluno atribuído ao estágio com sucesso!');
-    }
 }
