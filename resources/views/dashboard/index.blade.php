@@ -2,10 +2,6 @@
 
 @section('content')
 
-@php
-    $user = auth()->user();
-@endphp
-
 <h1 class="text-2xl font-bold mb-6">Welcome, {{ $user->name }}</h1>
 
 @if($user->isAdmin())
@@ -34,8 +30,8 @@
                     <p class="text-gray-600 text-sm font-medium mb-1">Coordinators</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $totalCoordinators }}</p>
                 </div>
-                <div class="bg-purple-100 rounded-full p-3">
-                    <x-dynamic-component :component="'fas-user-tie'" class="w-6 h-6 text-purple-600" />
+                <div class="bg-blue-100 rounded-full p-3">
+                    <x-dynamic-component :component="'fas-user-tie'" class="w-6 h-6 text-blue-600" />
                 </div>
             </div>
         </div>
@@ -46,8 +42,8 @@
                     <p class="text-gray-600 text-sm font-medium mb-1">Supervisors</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $totalSupervisors }}</p>
                 </div>
-                <div class="bg-green-100 rounded-full p-3">
-                    <x-dynamic-component :component="'fas-user-check'" class="w-6 h-6 text-green-600" />
+                <div class="bg-blue-100 rounded-full p-3">
+                    <x-dynamic-component :component="'fas-user-check'" class="w-6 h-6 text-blue-600" />
                 </div>
             </div>
         </div>
@@ -58,8 +54,8 @@
                     <p class="text-gray-600 text-sm font-medium mb-1">Students</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $totalStudents }}</p>
                 </div>
-                <div class="bg-yellow-100 rounded-full p-3">
-                    <x-dynamic-component :component="'fas-user-graduate'" class="w-6 h-6 text-yellow-600" />
+                <div class="bg-blue-100 rounded-full p-3">
+                    <x-dynamic-component :component="'fas-user-graduate'" class="w-6 h-6 text-blue-600" />
                 </div>
             </div>
         </div>
@@ -70,8 +66,8 @@
                     <p class="text-gray-600 text-sm font-medium mb-1">Companies</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $totalCompanies }}</p>
                 </div>
-                <div class="bg-orange-100 rounded-full p-3">
-                    <x-dynamic-component :component="'fas-building'" class="w-6 h-6 text-orange-600" />
+                <div class="bg-blue-100 rounded-full p-3">
+                    <x-dynamic-component :component="'fas-building'" class="w-6 h-6 text-blue-600" />
                 </div>
             </div>
         </div>
@@ -82,8 +78,8 @@
                     <p class="text-gray-600 text-sm font-medium mb-1">Classes</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $totalClasses }}</p>
                 </div>
-                <div class="bg-indigo-100 rounded-full p-3">
-                    <x-dynamic-component :component="'fas-chalkboard'" class="w-6 h-6 text-indigo-600" />
+                <div class="bg-blue-100 rounded-full p-3">
+                    <x-dynamic-component :component="'fas-chalkboard'" class="w-6 h-6 text-blue-600" />
                 </div>
             </div>
         </div>
@@ -94,8 +90,8 @@
                     <p class="text-gray-600 text-sm font-medium mb-1">Internships</p>
                     <p class="text-3xl font-bold text-gray-900">{{ $totalInternships }}</p>
                 </div>
-                <div class="bg-red-100 rounded-full p-3">
-                    <x-dynamic-component :component="'fas-briefcase'" class="w-6 h-6 text-red-600" />
+                <div class="bg-blue-100 rounded-full p-3">
+                    <x-dynamic-component :component="'fas-briefcase'" class="w-6 h-6 text-blue-600" />
                 </div>
             </div>
         </div>

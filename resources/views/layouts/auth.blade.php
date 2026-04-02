@@ -33,7 +33,7 @@
             ],
             [
                 'name' => 'Approve/Reject Hours',
-                'route' => 'dashboard.index',
+                'route' => 'supervisor.hour_approval',
                 'icon' => 'check',
                 'roles' => ['supervisor']
             ],
