@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoghourController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\HourApprovalController;
 
 // ---------- PUBLIC GUEST ----------
 Route::middleware(['guest'])->group(function () {
@@ -56,12 +57,10 @@ Route::middleware(['auth'])->group(function () {
         });
     */
     
-    /*
-        ---------- SUPERVISOR ----------
-        Route::middleware('role:supervisor')->group(function () {
-            // rotas para supervisores ainda nao criadas
-        });
-    */
+    //  ---------- SUPERVISOR ----------
+    Route::middleware('role:supervisor')->group(function () {
+        Route::get('/hour-approval', [HourApprovalController::class, 'index'])->name('supervisor.hour_approval');
+    });
 
     
 });

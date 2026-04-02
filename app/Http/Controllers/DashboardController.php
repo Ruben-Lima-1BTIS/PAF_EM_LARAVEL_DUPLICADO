@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         $stats = [
-            'totalUsers' => User::count() - 1,
+            'totalUsers' => User::count() - User::where('role', User::ROLE_ADMIN)->count(),
             'totalCoordinators' => User::where('role', User::ROLE_COORDINATOR)->count(),
             'totalSupervisors' => User::where('role', User::ROLE_SUPERVISOR)->count(),
             'totalStudents' => User::where('role', User::ROLE_STUDENT)->count(),
