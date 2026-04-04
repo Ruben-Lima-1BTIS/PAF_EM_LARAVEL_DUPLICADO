@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Hour;
 
 class User extends Authenticatable
 {
@@ -59,23 +60,21 @@ class User extends Authenticatable
     {
         return $this->role === self::ROLE_ADMIN;
     }
-    
+
     public function isCoordinator(): bool
     {
         return $this->role === self::ROLE_COORDINATOR;
     }
-    
+
     public function isSupervisor(): bool
     {
         return $this->role === self::ROLE_SUPERVISOR;
     }
-    
+
     public function isStudent(): bool
     {
         return $this->role === self::ROLE_STUDENT;
     }
-
-    // student relations
 
     public function scopeStudents($query)
     {
@@ -93,7 +92,20 @@ class User extends Authenticatable
     }
 
     public function internships()
-{
-    return $this->belongsToMany(Internship::class, 'user_internships', 'user_id', 'internship_id');
-}
+    {
+        return $this->belongsToMany(Internship::class, 'user_internships', 'user_id', 'internship_id');
+    }
+
+    // relacoes dos supervisores
+    public function supervisedStudents()
+    {
+        return $this->belongsToMany(User::class, 'student_supervisors', 'supervisor_id', 'student_id')
+            ->where('users.role', 'student');
+    }
+
+    public function hoursToReview()
+    {
+        return Hour::whereIn('student_id', $this->supervisedStudents()->pluck('id'))
+            ->where('status', 'pending');
+    }
 }
