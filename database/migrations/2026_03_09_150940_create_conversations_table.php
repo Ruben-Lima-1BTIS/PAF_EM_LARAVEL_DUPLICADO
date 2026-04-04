@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            
+
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('supervisor_id');
 
@@ -22,12 +22,12 @@ return new class extends Migration
             $table->unique(['student_id', 'supervisor_id']);
 
             $table->foreign('student_id')
-                  ->references('id')->on('users')
-                  ->cascadeOnDelete();
+                ->references('id')->on('users')
+                ->cascadeOnDelete();
 
             $table->foreign('supervisor_id')
-                    ->references('id')->on('users')
-                    ->cascadeOnDelete();
+                ->references('id')->on('users')
+                ->cascadeOnDelete();
         });
     }
 

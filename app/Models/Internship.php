@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Internship extends Model
 {
 
-        public $timestamps = false;
+    public $timestamps = false;
 
-        protected $fillable = [
-            'company_id',
-            'title',
-            'start_date',
-            'end_date',
-            'total_hours_required',
-            'min_hours_day',
-        ];
+    protected $fillable = [
+        'company_id',
+        'title',
+        'start_date',
+        'end_date',
+        'total_hours_required',
+        'min_hours_day',
+    ];
 
     public function company()
     {

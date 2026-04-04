@@ -24,8 +24,7 @@ class DashboardController extends Controller
             'totalClasses' => ClassModel::count(),
             'totalInternships' => Internship::count(),
         ];
-        
+
         return view('dashboard.index', ['user' => $user], $stats);
     }
 }
-

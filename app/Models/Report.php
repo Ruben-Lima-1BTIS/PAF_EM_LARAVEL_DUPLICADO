@@ -20,7 +20,7 @@ class Report extends Model
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id')
-                    ->where('role', 'student');
+            ->where('role', 'student');
     }
 
     public function internship()
@@ -31,6 +31,6 @@ class Report extends Model
     public function reviewer()
     {
         return $this->belongsTo(User::class, 'supervisor_reviewed_by')
-                    ->where('role', 'supervisor');
+            ->where('role', 'supervisor');
     }
 }

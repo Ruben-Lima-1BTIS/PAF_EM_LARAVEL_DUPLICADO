@@ -18,7 +18,7 @@ class Company extends Model
     public function supervisors()
     {
         return $this->hasMany(User::class, 'company_id')
-                    ->where('role', 'supervisor');
+            ->where('role', 'supervisor');
     }
 
     public function internships()

@@ -37,7 +37,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="card">
                 <div class="icon-wrap">
-                    <x-fas-user-graduate class="w-6 h-6"/>
+                    <x-fas-user-graduate class="w-6 h-6" />
                 </div>
                 <h3 class="text-lg font-semibold text-slate-800 mb-4">Students</h3>
                 <ul class="space-y-2 text-slate-600 text-sm">
@@ -49,7 +49,7 @@
             </div>
             <div class="card">
                 <div class="icon-wrap">
-                    <x-fas-user-tie class="w-6 h-6"/>
+                    <x-fas-user-tie class="w-6 h-6" />
                 </div>
                 <h3 class="text-lg font-semibold text-slate-800 mb-4">Supervisors</h3>
                 <ul class="space-y-2 text-slate-600 text-sm">
@@ -61,7 +61,7 @@
             </div>
             <div class="card">
                 <div class="icon-wrap">
-                    <x-fas-chalkboard-teacher class="w-6 h-6"/>
+                    <x-fas-chalkboard-teacher class="w-6 h-6" />
                 </div>
                 <h3 class="text-lg font-semibold text-slate-800 mb-4">Coordinators</h3>
                 <ul class="space-y-2 text-slate-600 text-sm">

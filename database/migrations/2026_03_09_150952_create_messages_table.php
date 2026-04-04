@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            
+
             $table->unsignedBigInteger('conversation_id');
             $table->unsignedBigInteger('sender_id');
             $table->enum('sender_type', ['student', 'supervisor', 'coordinator']);
@@ -25,8 +25,8 @@ return new class extends Migration
             $table->index(['sender_id', 'sender_type']);
 
             $table->foreign('conversation_id')
-                  ->references('id')->on('conversations')
-                  ->cascadeOnDelete();
+                ->references('id')->on('conversations')
+                ->cascadeOnDelete();
         });
     }
 

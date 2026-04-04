@@ -20,12 +20,12 @@ class ClassModel extends Model
     public function coordinator()
     {
         return $this->belongsTo(User::class, 'coordinator_id')
-                    ->where('role', 'coordinator');
+            ->where('role', 'coordinator');
     }
 
     public function students()
     {
         return $this->hasMany(User::class, 'class_id')
-                    ->where('role', 'student');
+            ->where('role', 'student');
     }
 }

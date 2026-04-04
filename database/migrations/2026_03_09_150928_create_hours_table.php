@@ -34,17 +34,16 @@ return new class extends Migration
             $table->index('date');
 
             $table->foreign('student_id')
-                  ->references('id')->on('users')
-                  ->cascadeOnDelete();
+                ->references('id')->on('users')
+                ->cascadeOnDelete();
 
             $table->foreign('internship_id')
-                  ->references('id')->on('internships')
-                  ->restrictOnDelete();
+                ->references('id')->on('internships')
+                ->restrictOnDelete();
 
             $table->foreign('supervisor_reviewed_by')
-                    ->references('id')->on('users')
-                    ->nullOnDelete();
-
+                ->references('id')->on('users')
+                ->nullOnDelete();
         });
     }
 

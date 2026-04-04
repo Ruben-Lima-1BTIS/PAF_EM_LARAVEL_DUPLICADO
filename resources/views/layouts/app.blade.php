@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,11 +9,12 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body class="bg-gray-50">
 
     <div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3 items-end">
 
-    @if(session('success'))
+        @if(session('success'))
         <div
             x-data="{ show: true }"
             x-show="show"
@@ -23,8 +25,7 @@
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95"
             x-init="setTimeout(() => show = false, 3000)"
-            class="toast toast--success"
-        >
+            class="toast toast--success">
             <div class="toast__icon">
                 <x-dynamic-component :component="'fas-circle-check'" class="w-4 h-4" />
             </div>
@@ -40,9 +41,9 @@
 
             <div class="toast__progress toast__progress--success"></div>
         </div>
-    @endif
+        @endif
 
-    @if($errors->any())
+        @if($errors->any())
         <div
             x-data="{ show: true }"
             x-show="show"
@@ -53,8 +54,7 @@
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95"
             x-init="setTimeout(() => show = false, 4000)"
-            class="toast toast--error"
-        >
+            class="toast toast--error">
             <div class="toast__icon">
                 <x-dynamic-component :component="'fas-circle-exclamation'" class="w-4 h-4" />
             </div>
@@ -70,13 +70,14 @@
 
             <div class="toast__progress toast__progress--error"></div>
         </div>
-    @endif
+        @endif
 
-</div>
+    </div>
 
     <div class="overflow-hidden bg-white shadow-sm rounded-lg">
         @yield('section')
     </div>
 
 </body>
+
 </html>

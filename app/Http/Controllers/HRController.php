@@ -63,11 +63,10 @@ class HRController extends Controller
             $user = User::create(
                 $validated
             );
-            if($validated['role'] == "student")
-                {
-                    $validated2['user_id'] = $user->id;
-                    UserClass::create($validated2);
-                }
+            if ($validated['role'] == "student") {
+                $validated2['user_id'] = $user->id;
+                UserClass::create($validated2);
+            }
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage());
         }
@@ -87,12 +86,11 @@ class HRController extends Controller
             'user_id' => 'nullable|integer|max:50',
         ]);
 
-        try{
+        try {
             $class = ClassModel::create($validated);
             $validated2['class_id'] = $class->id;
             UserClass::create($validated2);
             return back()->with('success', 'Turma criada com sucesso!');
-
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage());
         }
@@ -199,5 +197,4 @@ class HRController extends Controller
 
         return back()->with('success', 'Utilizador atribuído ao estágio com sucesso!');
     }
-
 }

@@ -55,7 +55,7 @@ class ReportController extends Controller
             'file_path'             => 'storage/' . $path,
             'original_name'         => $file->getClientOriginalName(),
             'status'                => 'pending',
-            'supervisor_reviewed_by'=> null,
+            'supervisor_reviewed_by' => null,
             'supervisor_comment'    => null,
             'created_at'            => now(),
         ]);

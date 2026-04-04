@@ -11,13 +11,13 @@ class Conversation extends Model
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id')
-                    ->where('role', 'student');
+            ->where('role', 'student');
     }
 
     public function supervisor()
     {
         return $this->belongsTo(User::class, 'supervisor_id')
-                    ->where('role', 'supervisor');
+            ->where('role', 'supervisor');
     }
 
     public function messages()
