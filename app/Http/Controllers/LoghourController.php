@@ -16,17 +16,26 @@ class LoghourController extends Controller
         $studentId = $request->user()->id;
 
         $logs = Hour::where('student_id', $studentId)
-                    ->orderByDesc('date')
-                    ->get()
-                    ->map(function ($log) {
-                        $start = Carbon::parse($log->start_time);
-                        $end = Carbon::parse($log->end_time);
-                        $log->hours_worked = max($start->floatDiffInHours($end) - 1, 0);
-                        return $log;
-                    });
+            ->orderByDesc('date')
+            ->get()
+            ->map(function ($log) {
+                $start = Carbon::parse($log->start_time);
+                $end = Carbon::parse($log->end_time);
+                $log->hours_worked = max($start->floatDiffInHours($end) - 1, 0);
+                return $log;
+            });
 
-        $totalHours = $logs->sum('hours_worked');
-        
+
+        $totalHours = Hour::where('student_id', $studentId)
+            ->approved()
+            ->get()
+            ->map(function ($log) {
+                $start = Carbon::parse($log->start_time);
+                $end = Carbon::parse($log->end_time);
+                return max($start->floatDiffInHours($end) - 1, 0);
+            })
+            ->sum();
+
         return view('student.hours.index', compact('logs', 'totalHours'));
     }
 
