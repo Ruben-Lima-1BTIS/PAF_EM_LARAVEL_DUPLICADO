@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
 
-    public function showlogin(){
+    public function showlogin()
+    {
         return view('auth.login');
     }
 
@@ -19,21 +20,13 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($credentials)){
-            return back()->withErrors('Bued cenas erradas');
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors('Invalid credentials');
         }
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
-
         return redirect()->route('dashboard.index');
-        /* return match ($user->role) {
-            'admin' => redirect()->route('cenas_fixes.cenas'),
-            'coordinator' => redirect()->route('cenas_fixes.cenas'),
-            'supervisor' => redirect()->route('cenas_fixes.cenas'),
-            'student' => redirect()->view('cenas_fixes.cenas'),
-        }; */
     }
 
     public function logout(Request $request)
@@ -45,4 +38,3 @@ class AuthController extends Controller
         return redirect('/');
     }
 }
-
