@@ -1,0 +1,55 @@
+For Database Seeder:
+Companies:
+  Microsoft 
+  Apple 
+  Nvidia 
+
+Supervisors:
+  Microsoft Supervisor 1
+  Microsoft Supervisor 2
+  Apple Supervisor 1
+  Apple Supervisor 2
+  Nvidia Supervisor 1
+  Nvidia Supervisor 2
+  
+Internships: 
+  Internship Microsoft 1
+  Internship Microsoft 2
+  Internship Microsoft 3
+  Apple Microsoft 1
+  Apple Microsoft 2
+  Apple Microsoft 3
+  Nvidia Microsoft 1
+  Nvidia Microsoft 2
+  Nvidia Microsoft 3
+
+Classes:
+  1ºATIS
+  1ºBTIS
+  2ºATIS
+  2ºBTIS
+  3ºATIS
+  3ºBTIS
+
+Students:
+  X1 - 1ATIS
+  X2 - 1BTIS
+  X3 - 1ATIS
+  X4 - 1BTIS
+  Y1 - 2ATIS
+  Y2 - 2BTIS
+  Y3 - 2ATIS
+  Y4 - 2BTIS
+  Z1 - 3ATIS
+  Z2 - 3BTIS
+  Z3 - 3ATIS
+  Z4 - 3BTIS
+  
+Assign Internship:
+  Internship Microsoft 1: X1 - 1ATIS X2 - 1BTIS
+  Internship Microsoft 2: X3 - 1ATIS X4 - 1BTIS
+  Internship Apple 1: Y1 - 2ATIS Y2 - 2BTIS
+  Internship Apple 2: Y3 - 2ATIS Y4 - 2BTIS
+  Internship Nvidia 1: Z1 - 3ATIS Z2 - 3BTIS
+  Internship Nvidia 2: Z3 - 3ATIS Z4 - 3BTIS
+
