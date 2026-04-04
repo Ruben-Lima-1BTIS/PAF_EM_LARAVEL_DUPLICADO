@@ -2,76 +2,62 @@
 
 @section('content')
 
-    <h1 class="text-2xl font-bold">ola {{ $user->name }}</h1>
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-6xl mx-auto">
 
-    For Database Seeder:
+		<div class="mb-8">
+			<h1 class="text-3xl font-bold text-gray-900 mb-8">
+				Hours Approval
+			</h1>
 
+			<div class="bg-white rounded-lg shadow p-6">
+				<form method="GET" action="{{ route('supervisor.hour_approval') }}" id="studentForm">
+					<x-select
+						name="student_id"
+						label="Select Student"
+						:selected="$selectedStudentId"
+						:options="$supervisedStudents->map(fn($student) => [
+                            'id' => $student->id,
+                            'name' => $student->name
+                        ])->toArray()"
+						onchange="document.getElementById('studentForm').submit()" />
+				</form>
+			</div>
+		</div>
 
-Companies:
-	Microsoft
-	Apple
-	Nvidia
-Supervisors:
-	Microsoft Supervisor 1
-	Microsoft Supervisor 2
-	Apple Supervisor 1
-	Apple Supervisor 2
-	Nvidia Supervisor 1
-	Nvidia Supervisor 2
-Internships:
-	Internship Microsoft 1
-	Internship Microsoft 2
-	Internship Microsoft 3
-	Apple Microsoft 1
-	Apple Microsoft 2
-	Apple Microsoft 3
-	Nvidia Microsoft 1
-	Nvidia Microsoft 2
-	Nvidia Microsoft 3
-Classes:
-	1ºATIS
-	1ºBTIS
-	2ºATIS
-	2ºBTIS
-	3ºATIS
-	3ºBTIS
-Students:
-	X1 - 1ATIS
-	X2 - 1BTIS
-	X3 - 1ATIS
-	X4 - 1BTIS
+		@if($stats)
+		<!-- componentes -->
+		<div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+			<x-stat-card title="Student Name" :value="$stats['student']->name" color="gray" />
+			<x-stat-card title="Pending" :value="$stats['totalPending']" color="yellow" />
+			<x-stat-card title="Approved" :value="$stats['totalApproved']" color="green" />
+			<x-stat-card title="Rejected" :value="$stats['totalRejected']" color="red" />
+			<x-stat-card title="Total Hours Logged" :value="$stats['totalHoursLogged'].'h'" color="blue" />
+		</div>
 
-	Y1 - 2ATIS
-	Y2 - 2BTIS
-	Y3 - 2ATIS
-	Y4 - 2BTIS
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+			<x-stat-card title="Approved Hours" :value="$stats['approvedHoursCount'].'h'" color="green" />
+		</div>
 
-	Z1 - 3ATIS
-	Z2 - 3BTIS
-	Z3 - 3ATIS
-	Z4 - 3BTIS
+		<!-- tabelas agora são componentes -->
+		<x-pending-hours-table :hours="$pendingHours" />
+		<x-approved-hours-table :hours="$approvedHours" />
 
+		@else
+		<!-- estado vazio -->
+		<div class="bg-white rounded-lg shadow p-12 text-center">
+			<p class="text-gray-500 text-lg">
+				Please select a student to view their hours
+			</p>
+		</div>
 
-Assign Internship:
+		@endif
 
-	Internship Microsoft 1:
-		X1 - 1ATIS
-		X2 - 1BTIS
-	Internship Microsoft 2:
-		X3 - 1ATIS
-		X4 - 1BTIS
-	Apple Microsoft 1:
-		Y1 - 2ATIS
-		Y2 - 2BTIS
-	Apple Microsoft 2:
-		Y3 - 2ATIS
-		Y4 - 2BTIS
-	Nvidia Microsoft 1:
-		Z1 - 3ATIS
-		Z2 - 3BTIS
-	Nvidia Microsoft 2:
-		Z3 - 3ATIS
-		Z4 - 3BTIS
+	</div>
+</div>
 
+<!-- Modals agora são componentes -->
+<x-approve-modal />
+<x-reject-modal />
 
 @endsection
