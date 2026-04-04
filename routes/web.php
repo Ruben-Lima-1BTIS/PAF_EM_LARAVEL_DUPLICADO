@@ -56,11 +56,11 @@ Route::middleware(['auth'])->group(function () {
             // rotas para coordenadores ainda nao criadas
         });
     */
-    
+
     //  ---------- SUPERVISOR ----------
     Route::middleware('role:supervisor')->group(function () {
         Route::get('/hour-approval', [HourApprovalController::class, 'index'])->name('supervisor.hour_approval');
+        Route::post('/hour-approval/{id}/approve', [HourApprovalController::class, 'approve'])->name('hour.approve');
+        Route::post('/hour-approval/{id}/reject', [HourApprovalController::class, 'reject'])->name('hour.reject');
     });
-
-    
 });
