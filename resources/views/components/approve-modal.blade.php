@@ -14,7 +14,7 @@
   x-transition.opacity
   x-cloak
   @keydown.escape.window="open = false"
-  class="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
 
   <div class="absolute inset-0" @click="open = false"></div>
 
@@ -35,17 +35,18 @@
       @csrf
 
       <button
-        type="button"
-        @click="open = false"
-        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-        Cancel
-      </button>
-
-      <button
         type="submit"
         class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
         Approve
       </button>
+
+      <button
+        type="button"
+        @click="open = false"
+        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200">
+        Cancel
+      </button>
+
     </form>
   </div>
 </div>
