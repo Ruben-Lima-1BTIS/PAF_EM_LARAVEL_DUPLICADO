@@ -42,6 +42,7 @@
                             ⏱
                         </div>
                         <div>
+                            {{-- aplicar componente --}}
                             <p class="stat-label">Total Hours Logged</p>
                             <p class="stat-value">{{ $totalHours }}h</p>
                         </div>

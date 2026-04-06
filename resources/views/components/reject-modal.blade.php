@@ -29,7 +29,7 @@
 
         <form method="POST" :action="`/hour-approval/${hourId}/reject`">
             @csrf
-            
+
             <div class="flex gap-3">
                 <button
                     type="submit"
@@ -48,3 +48,6 @@
         </form>
     </div>
 </div>
+
+
+
