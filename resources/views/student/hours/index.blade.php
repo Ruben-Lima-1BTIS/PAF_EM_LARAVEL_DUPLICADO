@@ -39,7 +39,7 @@
                 <div class="card-body" style="height:100%; display:flex; align-items:center;">
                     <div class="stat-card">
                         <div class="stat-icon-wrap">
-                            ⏱
+                            <x-dynamic-component :component="'fas-clock'" class="w-4 h-4" />
                         </div>
                         <div>
                             {{-- aplicar componente --}}
