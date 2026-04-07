@@ -1,21 +1,9 @@
 @extends('layouts.app')
 
 @section('section')
-    <div class="landing-page">
+    <div class="min-h-screen bg-gray-50">
 
-        <nav class="navbar">
-            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="logo-box">IH</div>
-                    <span class="text-xl font-bold text-slate-900">InternHub</span>
-                </div>
-
-                <a href="{{ route('home.index') }}" class="back-link">
-                    <x-fas-arrow-left-long class="w-4 h-4" />
-                    Back to Home
-                </a>
-            </div>
-        </nav>
+        @include('landing.auth-navbar')
 
         <div class="flex items-center justify-center px-4 py-24">
             <div class="w-full max-w-md">
@@ -29,7 +17,7 @@
                     </p>
                 </div>
 
-                <div class="card">
+                <x-auth-card>
                     <form action="{{ route('login') }}" method="POST" class="space-y-4">
                         @csrf
 
@@ -40,9 +28,9 @@
                             placeholder="Enter your password" />
 
                         <x-submit-button type="submit"> Login </x-submit-button>
-
                     </form>
-                </div>
+                </x-auth-card>
+
             </div>
         </div>
     </div>
