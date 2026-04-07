@@ -27,24 +27,26 @@
             Reject Hour Entry
         </h3>
 
+        <p class="text-gray-600 mb-6">
+            Are you sure you want to reject this hour entry?
+        </p>
+
         <form method="POST" :action="`/hour-approval/${hourId}/reject`">
             @csrf
 
             <div class="flex gap-3">
-                <button
-                    type="submit"
-                    class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+
+                <x-submit-button type="submit" color="bg-red-600 hover:bg-red-700">
                     Reject
-                </button>
+                </x-submit-button>
 
-                <button
+                <x-submit-button
                     type="button"
-                    @click="open = false"
-                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200">
+                    click="open = false"
+                    color="bg-gray-300 hover:bg-gray-200 text-gray-700">
                     Cancel
-                </button>
+                </x-submit-button>
             </div>
-
         </form>
     </div>
 </div>

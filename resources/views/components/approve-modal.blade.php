@@ -34,18 +34,16 @@
     <form method="POST" :action="`/hour-approval/${hourId}/approve`" class="flex gap-3">
       @csrf
 
-      <button
-        type="submit"
-        class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+      <x-submit-button type="submit" color="bg-green-600 hover:bg-green-700">
         Approve
-      </button>
+      </x-submit-button>
 
-      <button
+      <x-submit-button
         type="button"
-        @click="open = false"
-        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200">
+        click="open = false"
+        color="bg-gray-300 hover:bg-gray-400 text-gray-700">
         Cancel
-      </button>
+      </x-submit-button>
 
     </form>
   </div>

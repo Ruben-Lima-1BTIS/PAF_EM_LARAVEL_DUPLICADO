@@ -60,6 +60,7 @@
                 </div>
 
                 <div class="ih-form-footer">
+                    {{-- substituir por componente --}}
                     <button type="submit" class="ih-btn">
                         <x-dynamic-component :component="'fas-user-plus'" class="w-3.5 h-3.5" />
                         Create User
