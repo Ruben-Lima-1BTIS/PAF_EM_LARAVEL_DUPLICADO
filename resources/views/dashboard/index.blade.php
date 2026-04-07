@@ -12,89 +12,13 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
 
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Total Users</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalUsers }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-users'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Coordinators</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalCoordinators }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-user-tie'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Supervisors</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalSupervisors }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-user-check'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Students</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalStudents }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-user-graduate'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Companies</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalCompanies }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-building'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Classes</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalClasses }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-chalkboard'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-gray-600 text-sm font-medium mb-1">Internships</p>
-                <p class="text-3xl font-bold text-gray-900">{{ $totalInternships }}</p>
-            </div>
-            <div class="bg-blue-100 rounded-full p-3">
-                <x-dynamic-component :component="'fas-briefcase'" class="w-6 h-6 text-blue-600" />
-            </div>
-        </div>
-    </div>
+    <x-stat-card title="Total Users" value="{{ $totalUsers }}" icon="fas-users" />
+    <x-stat-card title="Coordinators" value="{{ $totalCoordinators }}" icon="fas-user-tie" />
+    <x-stat-card title="Supervisors" value="{{ $totalSupervisors }}" icon="fas-user-check" />
+    <x-stat-card title="Students" value="{{ $totalStudents }}" icon="fas-user-graduate" />
+    <x-stat-card title="Companies" value="{{ $totalCompanies }}" icon="fas-building" />
+    <x-stat-card title="Classes" value="{{ $totalClasses }}" icon="fas-chalkboard" />
+    <x-stat-card title="Internships" value="{{ $totalInternships }}" icon="fas-briefcase" />
 
 </div>
 @elseif($user->isCoordinator())
