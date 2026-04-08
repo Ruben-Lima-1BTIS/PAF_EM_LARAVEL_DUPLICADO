@@ -20,48 +20,77 @@ class HourApprovalController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $supervisedStudents = User::where('role', 'student')
-            ->whereHas('internships.company', fn($q) => $q->where('id', $user->company_id))
-            ->distinct()
+    $supervisedStudents = User::where('role', 'student')
+        ->whereHas('internships.company', fn ($q) => 
+            $q->where('id', $user->company_id)
+        )
+        ->distinct()
+        ->get();
+
+    $selectedStudentId = $request->integer('student_id');
+
+    $pendingHours = collect();
+    $approvedHours = collect();
+    $stats = null;
+
+    if ($selectedStudentId && $this->isAuthorized($selectedStudentId)) {
+
+        $baseQuery = Hour::with(['student', 'internship'])
+            ->forStudent($selectedStudentId);
+
+        $pendingHours = (clone $baseQuery)
+            ->where('status', 'pending')
+            ->orderByDesc('date')
             ->get();
 
-        $selectedStudentId = $request->student_id;
+        $approvedHours = (clone $baseQuery)
+            ->where('status', 'approved')
+            ->orderByDesc('reviewed_at')
+            ->get();
 
-        $pendingHours = collect();
-        $approvedHours = collect();
-        $stats = null;
+        $totalRejected = (clone $baseQuery)
+            ->where('status', 'rejected')
+            ->count();
 
-        if ($selectedStudentId && $this->isAuthorized($selectedStudentId)) {
+        $totalHoursLogged = (clone $baseQuery)
+            ->sum('duration_hours');
 
-            $hours = Hour::with(['student', 'internship'])
-                ->forStudent($selectedStudentId)
-                ->get();
+        $approvedHoursCount = (clone $baseQuery)
+            ->where('status', 'approved')
+            ->sum('duration_hours');
 
-            $pendingHours = $hours->where('status', 'pending')->sortByDesc('date');
-            $approvedHours = $hours->where('status', 'approved')->sortByDesc('reviewed_at');
+        $student = User::find($selectedStudentId);
 
-            $stats = [
-                'student'           => $hours->first()?->student,
-                'totalPending'      => $pendingHours->count(),
-                'totalApproved'     => $approvedHours->count(),
-                'totalRejected'     => $hours->where('status', 'rejected')->count(),
-                'totalHoursLogged'  => round($hours->sum('duration_hours'), 2),
-                'approvedHoursCount' => round($approvedHours->sum('duration_hours'), 2),
-            ];
-        }
-
-        return view('supervisor.hours_approval.index', compact(
-            'user',
-            'supervisedStudents',
-            'selectedStudentId',
-            'pendingHours',
-            'approvedHours',
-            'stats'
-        ));
+        $stats = [
+            'student'            => $student,
+            'totalPending'       => $pendingHours->count(),
+            'totalApproved'      => $approvedHours->count(),
+            'totalRejected'      => $totalRejected,
+            'totalHoursLogged'   => round($totalHoursLogged, 2),
+            'approvedHoursCount' => round($approvedHoursCount, 2),
+        ];
     }
+
+    $studentOptions = $supervisedStudents
+        ->map(fn ($student) => [
+            'id' => $student->id,
+            'name' => $student->name,
+        ])
+        ->values()
+        ->toArray();
+
+    return view('supervisor.hours_approval.index', compact(
+        'supervisedStudents',
+        'selectedStudentId',
+        'pendingHours',
+        'approvedHours',
+        'stats',
+        'studentOptions'
+    ));
+}
 
     public function approve($id, Request $request)
     {
