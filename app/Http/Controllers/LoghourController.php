@@ -15,16 +15,11 @@ class LoghourController extends Controller
     {
         $studentId = $request->user()->id;
 
-        // Fetch hours and approved hours in a single query per type
         $logs = Hour::where('student_id', $studentId)
             ->orderByDesc('date')
             ->get();
 
-        // Map hours worked for each log
-        $logs->transform(fn($log) => tap($log, fn($l) => $l->hours_worked = $this->calculateWorkedHours($l->start_time, $l->end_time)));
-
-        // Sum approved hours efficiently
-        $totalHours = $logs->where('status', 'approved')->sum(fn($log) => $log->hours_worked);
+        $totalHours = $logs->where('status', 'approved')->sum('duration_hours');
 
         return view('student.hours.index', compact('logs', 'totalHours'));
     }
@@ -46,7 +41,6 @@ class LoghourController extends Controller
             return back()->withErrors('As horas logadas devem ser no mínimo 4 horas, descontando 1 hora de almoço.');
         }
 
-        // Direct creation with only needed fields
         Hour::create([
             'student_id' => $studentId,
             'internship_id' => $internship->id,
@@ -59,9 +53,6 @@ class LoghourController extends Controller
         return back()->with('success', 'Horas logadas com sucesso!');
     }
 
-    /**
-     * Calculate hours worked subtracting 1h lunch.
-     */
     private function calculateWorkedHours(string $startTime, string $endTime): float
     {
         $start = Carbon::parse($startTime);
@@ -69,9 +60,6 @@ class LoghourController extends Controller
         return max($start->floatDiffInHours($end) - 1, 0);
     }
 
-    /**
-     * Get active internship for a student.
-     */
     private function getActiveInternship(int $studentId): Internship
     {
         $internshipIds = UserInternship::where('user_id', $studentId)->pluck('internship_id');
