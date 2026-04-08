@@ -36,34 +36,34 @@
     x-transition:leave-end="opacity-0 scale-95"
     x-init="setTimeout(() => show = false, {{ $colors[$type]['timeout'] }})"
     class="
-        relative flex items-center gap-3
-        min-w-[300px] max-w-[380px]
-        px-3.5 pt-3.5 pb-4
+        relative flex items-center gap-5
+        min-w-[480px] max-w-[580px]
+        px-6 pt-6 pb-8
         bg-white rounded-[0.875rem]
         border {{ $colors[$type]['border'] }}
         shadow-[0_4px_16px_rgba(0,0,0,0.06)]
         font-sora
     "
 >
-    <div class="flex items-center justify-center w-8 h-8 rounded-[0.6rem] shrink-0 {{ $colors[$type]['bg'] }} {{ $colors[$type]['text'] }}">
-        <x-dynamic-component :component="$colors[$type]['icon']" class="w-4 h-4" />
+    <div class="flex items-center justify-center w-14 h-14 rounded-[0.7rem] shrink-0 {{ $colors[$type]['bg'] }} {{ $colors[$type]['text'] }}">
+        <x-dynamic-component :component="$colors[$type]['icon']" class="w-7 h-7" />
     </div>
 
     <div class="flex-1 min-w-0">
-        <p class="text-[0.7rem] font-bold tracking-[0.08em] uppercase mb-[0.15rem] {{ $colors[$type]['text'] }}">
+        <p class="text-[0.85rem] font-bold tracking-[0.08em] uppercase mb-1 {{ $colors[$type]['text'] }}">
             {{ ucfirst($type) }}
         </p>
-        <p class="text-[0.8125rem] text-slate-800 leading-[1.4] whitespace-nowrap overflow-hidden text-ellipsis font-medium">
+        <p class="text-[1rem] text-slate-800 leading-[1.4] whitespace-nowrap overflow-hidden text-ellipsis font-medium">
             {{ $message }}
         </p>
     </div>
 
     <button
         @click="show = false"
-        class="flex items-center justify-center w-6 h-6 rounded-md text-slate-400 bg-transparent cursor-pointer shrink-0 transition-colors hover:bg-blue-50 hover:text-blue-600"
+        class="flex items-center justify-center w-8 h-8 rounded-md text-slate-400 bg-transparent cursor-pointer shrink-0 transition-colors hover:bg-blue-50 hover:text-blue-600"
     >
-        <x-dynamic-component :component="'fas-xmark'" class="w-3 h-3" />
+        <x-dynamic-component :component="'fas-xmark'" class="w-4 h-4" />
     </button>
 
-    <div class="absolute bottom-0 left-0 h-[2.5px] w-full origin-left rounded-b-[0.875rem] bg-gradient-to-r {{ $colors[$type]['gradient'] }} animate-[drain_{{ $colors[$type]['timeout']/1000 }}s_linear_forwards]"></div>
+    <div class="absolute bottom-0 left-0 h-[3px] w-full origin-left rounded-b-[0.875rem] bg-gradient-to-r {{ $colors[$type]['gradient'] }} animate-[drain_{{ $colors[$type]['timeout']/1000 }}s_linear_forwards]"></div>
 </div>
