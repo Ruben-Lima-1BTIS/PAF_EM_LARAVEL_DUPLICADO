@@ -15,26 +15,16 @@ class LoghourController extends Controller
     {
         $studentId = $request->user()->id;
 
+        // Fetch hours and approved hours in a single query per type
         $logs = Hour::where('student_id', $studentId)
             ->orderByDesc('date')
-            ->get()
-            ->map(function ($log) {
-                $start = Carbon::parse($log->start_time);
-                $end = Carbon::parse($log->end_time);
-                $log->hours_worked = max($start->floatDiffInHours($end) - 1, 0);
-                return $log;
-            });
+            ->get();
 
+        // Map hours worked for each log
+        $logs->transform(fn($log) => tap($log, fn($l) => $l->hours_worked = $this->calculateWorkedHours($l->start_time, $l->end_time)));
 
-        $totalHours = Hour::where('student_id', $studentId)
-            ->approved()
-            ->get()
-            ->map(function ($log) {
-                $start = Carbon::parse($log->start_time);
-                $end = Carbon::parse($log->end_time);
-                return max($start->floatDiffInHours($end) - 1, 0);
-            })
-            ->sum();
+        // Sum approved hours efficiently
+        $totalHours = $logs->where('status', 'approved')->sum(fn($log) => $log->hours_worked);
 
         return view('student.hours.index', compact('logs', 'totalHours'));
     }
@@ -42,38 +32,52 @@ class LoghourController extends Controller
     public function store(Request $request)
     {
         $studentId = Auth::id();
-        $internshipsIds = UserInternship::where('user_id', $studentId)->pluck('internship_id');
-
-        $internship = Internship::whereIn('id', $internshipsIds)
-            ->where('status', 'active')
-            ->first();
+        $internship = $this->getActiveInternship($studentId);
 
         $validated = $request->validate([
-            'date' => [
-                'required',
-                'date',
-                'after_or_equal:' . $internship->start_date,
-            ],
+            'date' => ['required', 'date', 'after_or_equal:' . $internship->start_date],
             'start_time' => 'required',
             'end_time' => 'required|after:start_time',
         ]);
 
-        $start = Carbon::parse($validated['start_time']);
-        $end = Carbon::parse($validated['end_time']);
-        $hoursWorked = $start->floatDiffInHours($end) - 1;
+        $hoursWorked = $this->calculateWorkedHours($validated['start_time'], $validated['end_time']);
 
         if ($hoursWorked < 4) {
             return back()->withErrors('As horas logadas devem ser no mínimo 4 horas, descontando 1 hora de almoço.');
         }
 
-        $validated['student_id'] = Auth::id();
-        $validated['internship_id'] = $internship->id;
+        // Direct creation with only needed fields
+        Hour::create([
+            'student_id' => $studentId,
+            'internship_id' => $internship->id,
+            'date' => $validated['date'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'duration_hours' => round($hoursWorked, 2),
+        ]);
 
-        try {
-            Hour::create($validated);
-            return back()->with('success', 'Horas logadas com sucesso!');
-        } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage());
-        }
+        return back()->with('success', 'Horas logadas com sucesso!');
+    }
+
+    /**
+     * Calculate hours worked subtracting 1h lunch.
+     */
+    private function calculateWorkedHours(string $startTime, string $endTime): float
+    {
+        $start = Carbon::parse($startTime);
+        $end = Carbon::parse($endTime);
+        return max($start->floatDiffInHours($end) - 1, 0);
+    }
+
+    /**
+     * Get active internship for a student.
+     */
+    private function getActiveInternship(int $studentId): Internship
+    {
+        $internshipIds = UserInternship::where('user_id', $studentId)->pluck('internship_id');
+
+        return Internship::whereIn('id', $internshipIds)
+            ->where('status', 'active')
+            ->firstOrFail();
     }
 }
