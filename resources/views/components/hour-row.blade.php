@@ -8,7 +8,7 @@
     <td class="px-3 py-3 text-[0.85rem] text-black">{{ $log->date }}</td>
     <td class="px-3 py-3 text-[0.85rem] text-black">{{ $log->start_time }}</td>
     <td class="px-3 py-3 text-[0.85rem] text-black">{{ $log->end_time }}</td>
-    <td class="px-3 py-3 text-[0.85rem] text-black">{{ $log->hours_worked }}h</td>
+    <td class="px-3 py-3 text-[0.85rem] text-black">{{ $log->duration_hours}}h</td>
     <td class="px-3 py-3 text-[0.85rem] text-black">
         <x-status-badge :status="$status" />
     </td>

@@ -4,12 +4,10 @@
 <div class="min-h-screen bg-blue-50">
     <div class="max-w-6xl mx-auto p-6 space-y-8 fade-up">
 
-        <!-- Page Header -->
         <x-page-header title="Log Hours" subtitle="Track and manage your internship time" />
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 fade-up">
 
-            <!-- Log Hours Form -->
             <x-primary-card class="lg:col-span-2">
                 <div class="p-7">
                     <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-black mb-1">Entry</p>
@@ -29,13 +27,11 @@
                 </div>
             </x-primary-card>
 
-            <!-- Total Hours Stat -->
             <x-primary-card class="lg:col-span-1">
                 <x-primary-stat-card title="Total Hours Logged" :value="$totalHours" icon="fas-clock" />
             </x-primary-card>
         </div>
 
-        <!-- History Table -->
         <x-primary-card class="lg:col-span-2">
             <div class="p-7">
                 <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-black mb-1">History</p>

@@ -35,6 +35,7 @@
 
 
 		<!-- tabelas agora são componentes -->
+		
 		<x-pending-hours-table :hours="$pendingHours" />
 		<x-approved-hours-table :hours="$approvedHours" />
 
