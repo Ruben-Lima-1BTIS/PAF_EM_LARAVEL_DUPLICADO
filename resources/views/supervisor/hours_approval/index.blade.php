@@ -27,17 +27,15 @@
 
 		@if($stats)
 		<!-- componentes -->
-		<div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+		<div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-8">
 			<x-stat-card title="Student Name" :value="$stats['student']->name" color="gray" />
 			<x-stat-card title="Pending" :value="$stats['totalPending']" color="yellow" />
 			<x-stat-card title="Approved" :value="$stats['totalApproved']" color="green" />
 			<x-stat-card title="Rejected" :value="$stats['totalRejected']" color="red" />
 			<x-stat-card title="Total Hours Logged" :value="$stats['totalHoursLogged'].'h'" color="blue" />
-		</div>
-
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
 			<x-stat-card title="Approved Hours" :value="$stats['approvedHoursCount'].'h'" color="green" />
 		</div>
+
 
 		<!-- tabelas agora são componentes -->
 		<x-pending-hours-table :hours="$pendingHours" />
