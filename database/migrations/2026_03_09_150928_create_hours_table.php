@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->decimal('duration_hours', 5, 2);
 
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 
