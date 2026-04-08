@@ -158,18 +158,3 @@
     font-style: italic;
 }
 
-/*para empty state*/
-.empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: #475569;
-}
-
-.empty-state svg {
-    margin: 0 auto 0.75rem;
-    color: #dbeafe;
-}
-
-.empty-state p {
-    font-size: 0.875rem;
-}
