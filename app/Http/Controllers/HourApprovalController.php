@@ -98,7 +98,7 @@ class HourApprovalController extends Controller
         }
 
         $request->validate([
-            'comment' => 'required|string|max:1000',
+            'comment' => 'string|max:1000',
         ]);
 
         $hour->update([
