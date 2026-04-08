@@ -19,16 +19,6 @@
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
 
     <div class="absolute inset-0" @click="open = false"></div>
-            });
-        }
-    }"
-    x-show="open"
-    x-transition.opacity
-    x-cloak
-    @keydown.escape.window="open = false"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-
-    <div class="absolute inset-0" @click="open = false"></div>
 
     <div
         x-show="open"
@@ -46,7 +36,7 @@
         <form method="POST" :action="`/hour-approval/${hourId}/reject`" @submit="loading = true" class="flex gap-3">
             @csrf
 
-            <button></button>
+            {{-- Removed the rogue empty <button> that was here --}}
 
             <button type="submit"
                 class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
@@ -56,10 +46,10 @@
             </button>
 
             <button type="button" @click="open = false"
-                class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 text-gray-700" :disabled="loading">
+                class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 text-gray-700"
+                :disabled="loading">
                 Cancel
             </button>
-
         </form>
     </div>
 </div>
