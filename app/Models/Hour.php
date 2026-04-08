@@ -62,7 +62,9 @@ class Hour extends Model
 
     public function getDurationHoursAttribute()
     {
-        return Carbon::parse($this->start_time)
-            ->diffInMinutes(Carbon::parse($this->end_time)) / 60;
+        return max(
+            Carbon::parse($this->start_time)->floatDiffInHours(Carbon::parse($this->end_time)) - 1,
+            0
+        );
     }
 }
