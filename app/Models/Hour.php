@@ -17,6 +17,7 @@ class Hour extends Model
         'supervisor_reviewed_by',
         'supervisor_comment',
         'reviewed_at',
+        'duration_hours',
     ];
 
 
