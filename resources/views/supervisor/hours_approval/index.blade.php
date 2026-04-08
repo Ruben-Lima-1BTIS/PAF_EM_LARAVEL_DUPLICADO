@@ -16,10 +16,7 @@
 						name="student_id"
 						label="Select Student"
 						:selected="$selectedStudentId"
-						:options="$supervisedStudents->map(fn($student) => [
-                            'id' => $student->id,
-                            'name' => $student->name
-                        ])->toArray()"
+						:options="$supervisedStudents"
 						onchange="document.getElementById('studentForm').submit()" />
 				</form>
 			</div>
@@ -27,7 +24,7 @@
 
 		@if($stats)
 		<!-- componentes -->
-		<div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-8">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
 			<x-stat-card title="Student Name" :value="$stats['student']->name" color="gray" />
 			<x-stat-card title="Pending" :value="$stats['totalPending']" color="yellow" />
 			<x-stat-card title="Approved" :value="$stats['totalApproved']" color="green" />
@@ -43,11 +40,7 @@
 
 		@else
 		<!-- estado vazio -->
-		<div class="bg-white rounded-lg shadow p-12 text-center">
-			<p class="text-gray-500 text-lg">
-				Please select a student to view their hours
-			</p>
-		</div>
+		<x-empty-state message="Please select a student to view their hours" />
 
 		@endif
 
