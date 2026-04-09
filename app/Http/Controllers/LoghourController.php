@@ -11,46 +11,19 @@ use Carbon\Carbon;
 
 class LoghourController extends Controller
 {
-    public function index(Request $request)
+
+    private function hasLoggedForDate(int $studentId, string $date): bool
     {
-        $studentId = $request->user()->id;
-
-        $logs = Hour::where('student_id', $studentId)
-            ->orderByDesc('date')
-            ->get();
-
-        $totalHours = $logs->where('status', 'approved')->sum('duration_hours');
-
-        return view('student.hours.index', compact('logs', 'totalHours'));
+        return Hour::where('student_id', $studentId)
+            ->whereDate('date', $date)
+            ->exists();
     }
 
-    public function store(Request $request)
+    private function formatHours(float $hours): string
     {
-        $studentId = Auth::id();
-        $internship = $this->getActiveInternship($studentId);
-
-        $validated = $request->validate([
-            'date' => ['required', 'date', 'after_or_equal:' . $internship->start_date],
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
-        ]);
-
-        $hoursWorked = $this->calculateWorkedHours($validated['start_time'], $validated['end_time']);
-
-        if ($hoursWorked < 4) {
-            return back()->withErrors('As horas logadas devem ser no mínimo 4 horas, descontando 1 hora de almoço.');
-        }
-
-        Hour::create([
-            'student_id' => $studentId,
-            'internship_id' => $internship->id,
-            'date' => $validated['date'],
-            'start_time' => $validated['start_time'],
-            'end_time' => $validated['end_time'],
-            'duration_hours' => round($hoursWorked, 2),
-        ]);
-
-        return back()->with('success', 'Horas logadas com sucesso!');
+        $h = (int) $hours;
+        $m = (int) round(($hours - $h) * 60);
+        return sprintf('%02d:%02d', $h, $m);
     }
 
     private function calculateWorkedHours(string $startTime, string $endTime): float
@@ -68,4 +41,56 @@ class LoghourController extends Controller
             ->where('status', 'active')
             ->firstOrFail();
     }
+
+    public function index(Request $request)
+    {
+        $studentId = $request->user()->id;
+
+        $logs = Hour::where('student_id', $studentId)
+            ->orderByDesc('date')
+            ->get();
+
+        $totalHours = $logs->where('status', 'approved')
+            ->whereNotNull('duration_hours')
+            ->sum(fn($log) => (float) $log->duration_hours);
+
+        $totalHoursFormatted = $this->formatHours($totalHours);
+
+        return view('student.hours.index', compact('logs', 'totalHoursFormatted'));
+    }
+
+    public function store(Request $request)
+    {
+        $studentId = Auth::id();
+        $internship = $this->getActiveInternship($studentId);
+
+        if ($this->hasLoggedForDate($studentId, $request->input('date'))) {
+            return back()->withErrors('You already logged hours for this day.');
+        }
+
+        $validated = $request->validate([
+            'date' => ['required', 'date', 'after_or_equal:' . $internship->start_date],
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+        ]);
+
+        $hoursWorked = $this->calculateWorkedHours($validated['start_time'], $validated['end_time']);
+
+        if ($hoursWorked < 4) {
+            return back()->withErrors('Logged hours must be at least 4 hours, excluding 1 hour for lunch.');
+        }
+
+        Hour::create([
+            'student_id' => $studentId,
+            'internship_id' => $internship->id,
+            'date' => $validated['date'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'duration_hours' => round($hoursWorked, 2),
+        ]);
+
+        return back()->with('success', 'Hours logged successfully!');
+    }
+
+
 }
