@@ -28,7 +28,7 @@
             </x-primary-card>
 
             <x-primary-card class="lg:col-span-1">
-                <x-primary-stat-card title="Total Hours Logged" :value="$totalHours" icon="fas-clock" />
+                <x-primary-stat-card title="Total Hours Logged" :value="$totalHoursFormatted" icon="fas-clock" />
             </x-primary-card>
         </div>
 

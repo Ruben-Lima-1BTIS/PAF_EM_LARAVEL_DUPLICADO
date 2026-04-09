@@ -48,7 +48,7 @@
                             </td>
 
                             <td class="px-6 py-4 text-sm text-gray-600">
-                                {{ round($hour->duration_hours, 2)}}h
+                                {{ $hour->duration_hours}}h
                             </td>
 
                             <td class="px-6 py-4 text-center text-sm">
