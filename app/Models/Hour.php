@@ -20,7 +20,6 @@ class Hour extends Model
         'duration_hours',
     ];
 
-
     public $timestamps = false;
 
     public function student()
@@ -60,11 +59,18 @@ class Hour extends Model
         return $query->where('status', 'rejected');
     }
 
-    public function getDurationHoursAttribute()
+    public function getDurationHoursAttribute(): string
     {
-        return max(
-            Carbon::parse($this->start_time)->floatDiffInHours(Carbon::parse($this->end_time)) - 1,
+        $minutes = max(
+            Carbon::parse($this->start_time)
+                ->diffInMinutes(Carbon::parse($this->end_time)) - 60,
             0
+        );
+
+        return sprintf(
+            '%02d:%02d',
+            intdiv($minutes, 60),
+            $minutes % 60
         );
     }
 }
