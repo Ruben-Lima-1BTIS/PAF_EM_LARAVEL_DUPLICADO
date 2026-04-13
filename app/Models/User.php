@@ -108,4 +108,11 @@ class User extends Authenticatable
         return Hour::whereIn('student_id', $this->supervisedStudents()->pluck('id'))
             ->where('status', 'pending');
     }
+
+    
+    public function getClass()
+    {
+        return $this->belongsTo(UserClass::class, 'class_id'); 
+    }
+
 }
