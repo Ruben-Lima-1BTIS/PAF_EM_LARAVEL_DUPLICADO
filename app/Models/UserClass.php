@@ -24,4 +24,9 @@ class UserClass extends Model
     {
         return $this->belongsTo(ClassModel::class, 'class_id');
     }
+    public function classModel()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id');
+    }
+
 }

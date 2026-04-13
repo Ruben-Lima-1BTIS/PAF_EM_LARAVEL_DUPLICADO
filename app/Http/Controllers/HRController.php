@@ -7,7 +7,6 @@ use App\Models\Company;
 use App\Models\ClassModel;
 use App\Models\Internship;
 use App\Models\User;
-use App\Models\StudentInternship;
 use App\Models\UserClass;
 use App\Models\UserInternship;
 
@@ -42,7 +41,7 @@ class HRController extends Controller
             'phone' => $request->phone,
         ]);
 
-        return back()->with('success', 'Empresa criada com sucesso!');
+        return back()->with('success', 'Company created successfully!');
     }
 
     public function createUser(Request $request)
@@ -71,7 +70,7 @@ class HRController extends Controller
             return back()->withErrors($e->getMessage());
         }
 
-        return back()->with('success', 'Utilizador criado com sucesso!');
+        return back()->with('success', 'User created successfully!');
     }
 
     public function createClass(Request $request)
@@ -90,7 +89,7 @@ class HRController extends Controller
             $class = ClassModel::create($validated);
             $validated2['class_id'] = $class->id;
             UserClass::create($validated2);
-            return back()->with('success', 'Turma criada com sucesso!');
+            return back()->with('success', 'Class created successfully!');
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage());
         }
@@ -114,7 +113,7 @@ class HRController extends Controller
             return back()->withErrors($e->getMessage());
         }
 
-        return back()->with('success', 'Estágio criado com sucesso!');
+        return back()->with('success', 'Internship created successfully!');
     }
 
     public function createSupervisor(Request $request)
@@ -139,7 +138,7 @@ class HRController extends Controller
             return back()->withErrors($e->getMessage());
         }
 
-        return back()->with('success', 'Supervisor criado com sucesso!');
+        return back()->with('success', 'Supervisor created successfully!');
     }
 
     public function createStudent(Request $request)
@@ -164,7 +163,7 @@ class HRController extends Controller
             return back()->withErrors($e->getMessage());
         }
 
-        return back()->with('success', 'Aluno criado com sucesso!');
+        return back()->with('success', 'Student created successfully!');
     }
 
     public function assignUserInternship(Request $request)
@@ -179,7 +178,7 @@ class HRController extends Controller
             : $request->supervisor_id;
 
         if (!$userId) {
-            return back()->withErrors('Selecione um utilizador.');
+            return back()->withErrors('Please select a user.');
         }
 
         $exists = UserInternship::where('user_id', $userId)
@@ -187,7 +186,7 @@ class HRController extends Controller
             ->exists();
 
         if ($exists) {
-            return back()->withErrors('Este utilizador já está atribuído a este estágio.');
+            return back()->withErrors('This user is already assigned to this internship.');
         }
 
         UserInternship::create([
@@ -195,6 +194,6 @@ class HRController extends Controller
             'internship_id' => $request->internship_id,
         ]);
 
-        return back()->with('success', 'Utilizador atribuído ao estágio com sucesso!');
+        return back()->with('success', 'User assigned to internship successfully!');
     }
 }

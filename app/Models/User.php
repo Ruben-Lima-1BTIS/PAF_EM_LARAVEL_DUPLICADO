@@ -114,5 +114,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserClass::class, 'class_id'); 
     }
+        public function userClass()
+    {
+        return $this->hasOne(UserClass::class, 'user_id');
+    }
 
 }

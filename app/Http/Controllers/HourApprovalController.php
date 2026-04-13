@@ -7,19 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use App\Models\Hour;
 use App\Models\User;
-use App\Models\UserClass;
-use App\Models\ClassModel;
-
 
 class HourApprovalController extends Controller
 {
     private function isAuthorized(int $studentId): bool
     {
-        $companyId = Auth::user()->company_id;
-
         return User::where('id', $studentId)
             ->where('role', 'student')
-            ->whereHas('internships.company', fn($q) => $q->where('id', $companyId))
+            ->whereHas('internships.company', fn($q) => $q->where('id', Auth::user()->company_id))
             ->exists();
     }
 
@@ -36,10 +31,10 @@ class HourApprovalController extends Controller
     private function updateHourStatus(Hour $hour, string $status, ?string $comment = null): void
     {
         $hour->update([
-            'status' => $status,
+            'status'                 => $status,
             'supervisor_reviewed_by' => Auth::id(),
-            'supervisor_comment' => $comment,
-            'reviewed_at' => now(),
+            'supervisor_comment'     => $comment,
+            'reviewed_at'            => now(),
         ]);
     }
 
@@ -49,48 +44,37 @@ class HourApprovalController extends Controller
 
         $supervisedStudents = User::where('role', 'student')
             ->whereHas('internships.company', fn($q) => $q->where('id', $user->company_id))
+            ->with('userClass.classModel')
             ->distinct()
             ->get();
 
-        // save on variable all students with their name + their class sigla
-        $cleanedStudents = [];
-        foreach ($supervisedStudents as $student) {
-            $userClass = UserClass::where('user_id', $student->id)->first();
-            $classSigla = $userClass
-                ? (ClassModel::find($userClass->class_id)->sigla ?? 'No Class')
-                : 'No Class';
-
-            $cleanedStudents[] = [
-                'id' => $student->id,
-                'name' => $student->name . ' (' . $classSigla . ')',
-            ];
-        }
+        $cleanedStudents = $supervisedStudents->map(fn($s) => [
+            'id'   => $s->id,
+            'name' => $s->name . ' (' . ($s->userClass?->classModel?->sigla ?? 'No Class') . ')',
+        ])->all();
 
         $selectedStudentId = $request->integer('student_id');
-        $pendingHours = collect();
-        $approvedHours = collect();
-        $stats = null;
+        $pendingHours      = collect();
+        $approvedHours     = collect();
+        $stats             = null;
 
         if ($selectedStudentId && $this->isAuthorized($selectedStudentId)) {
             $baseQuery = Hour::with(['student', 'internship'])->forStudent($selectedStudentId);
 
-            $pendingHours = (clone $baseQuery)->where('status', 'pending')->orderByDesc('date')->get();
+            $pendingHours  = (clone $baseQuery)->where('status', 'pending')->orderByDesc('date')->get();
             $approvedHours = (clone $baseQuery)->where('status', 'approved')->orderByDesc('reviewed_at')->get();
             $totalRejected = (clone $baseQuery)->where('status', 'rejected')->count();
-
-            $allHours = $baseQuery->get();
+            $allHours      = $baseQuery->get();
 
             $stats = [
-                'student' => User::find($selectedStudentId),
-                'totalPending' => $pendingHours->count(),
-                'totalApproved' => $approvedHours->count(),
-                'totalRejected' => $totalRejected,
-                'totalHoursLogged' => $this->formatHours($allHours),
+                'student'            => User::find($selectedStudentId),
+                'totalPending'       => $pendingHours->count(),
+                'totalApproved'      => $approvedHours->count(),
+                'totalRejected'      => $totalRejected,
+                'totalHoursLogged'   => $this->formatHours($allHours),
                 'approvedHoursCount' => $this->formatHours($approvedHours),
             ];
         }
-
-        $studentOptions = $supervisedStudents->map(fn($s) => ['id' => $s->id, 'name' => $s->name])->values()->toArray();
 
         return view('supervisor.hours_approval.index', compact(
             'cleanedStudents',
@@ -98,13 +82,13 @@ class HourApprovalController extends Controller
             'pendingHours',
             'approvedHours',
             'stats',
-            'studentOptions'
         ));
     }
 
     public function approve(int $id, Request $request)
     {
         $hour = Hour::find($id);
+
         if (!$hour)
             return back()->with('error', 'Hour not found');
         if (!$this->isAuthorized($hour->student_id))
@@ -118,6 +102,7 @@ class HourApprovalController extends Controller
     public function reject(int $id, Request $request)
     {
         $hour = Hour::find($id);
+
         if (!$hour)
             return back()->with('error', 'Hour not found');
         if (!$this->isAuthorized($hour->student_id))
