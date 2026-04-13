@@ -17,51 +17,68 @@
             <x-stat-card title="Classes" value="{{ $stats['totalClasses'] }}" icon="fas-chalkboard" />
             <x-stat-card title="Internships" value="{{ $stats['totalInternships'] }}" icon="fas-briefcase" />
         </div>
-
     @elseif($user->isCoordinator())
         <p>Coordinator dashboard content here</p>
-
     @elseif($user->isSupervisor())
         <p>Supervisor dashboard content here</p>
-
     @elseif($user->isStudent())
-        <div class="space-y-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full min-w-0">
-                <x-stat-card title="Hours Completed" value="{{ $stats['approvedHours'] }}" icon="fas-clock" />
-                <x-stat-card title="Submitted Reports" value="{{ $stats['reportsSubmitted'] }}" icon="fas-file-alt" />
-            </div>
+        <div class="space-y-8 w-full">
 
-            @php $weeklyHours = $stats['weeklyHours'] ?? [0, 0, 0, 0, 0]; @endphp
-            <script>
-                window.dashboardStats = {
-                    remainingHours: {{ (int) ($stats['remainingHours'] ?? 0) }},
-                    pendingHours: {{ (int) ($stats['pendingHours'] ?? 0) }},
-                    approvedHours: {{ (int) ($stats['approvedHours'] ?? 0) }},
-                    weeklyHours: @json($weeklyHours),
-                    minHoursDay: 6
-                };
-            </script>
-
-            <div class="grid grid-cols-1 min-[1530px]:grid-cols-2 gap-8 min-w-0">
-                <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Hour Distribution</h3>
-                    <div class="relative h-80 w-full">
-                        <canvas id="hoursPieChart"></canvas>
-                    </div>
+            <div class="flex flex-col sm:flex-row gap-8 w-full">
+                <div class="flex-1">
+                    <x-stat-card title="Hours Completed" value="{{ $stats['approvedHours'] }}" icon="fas-clock" />
                 </div>
-                <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Weekly Progress</h3>
-                    <div class="relative h-80 w-full">
-                        <canvas id="hoursBarChart"></canvas>
-                    </div>
+
+                <div class="flex-1">
+                    <x-stat-card title="Submitted Reports" value="{{ $stats['reportsSubmitted'] }}" icon="fas-file-alt" />
                 </div>
             </div>
 
-            @push('scripts')
-                @vite('resources/js/dashboard.js')
-            @endpush
+            <div class="flex flex-col xl:flex-row gap-8 w-full">
+
+                <div
+                    class="flex-1 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+                        Hour Distribution
+                    </h3>
+
+                    <div class="relative w-full h-[320px]">
+                        <canvas id="hoursPieChart" class="w-full h-full"></canvas>
+                    </div>
+                </div>
+
+                <div
+                    class="flex-1 bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+                        Weekly Progress
+                    </h3>
+
+                    <div class="relative w-full h-[320px]">
+                        <canvas id="hoursBarChart" class="w-full h-full"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
+        @php $weeklyHours = $stats['weeklyHours'] ?? [0, 0, 0, 0, 0]; @endphp
+        <script>
+            window.dashboardStats = {
+                remainingHours: {{ (int) ($stats['remainingHours'] ?? 0) }},
+                pendingHours: {{ (int) ($stats['pendingHours'] ?? 0) }},
+                approvedHours: {{ (int) ($stats['approvedHours'] ?? 0) }},
+                weeklyHours: @json($weeklyHours),
+                minHoursDay: 6
+            };
+        </script>
+
+
+
+        @push('scripts')
+            @vite('resources/js/dashboard.js')
+        @endpush
+        </div>
     @else
         <p>Unknown role</p>
     @endif

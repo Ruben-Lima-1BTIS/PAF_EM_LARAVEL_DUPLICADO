@@ -144,8 +144,8 @@
             </nav>
         </aside>
 
-        <div class="ml-64 pt-16 min-h-screen bg-blue-50">
-            <main class="p-6 h-[calc(100vh-4rem)] overflow-y-auto">
+        <div class="ml-64 pt-16 bg-blue-50">
+            <main class="p-6 overflow-y-auto">
                 @yield('content')
             </main>
         </div>
