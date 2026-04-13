@@ -16,7 +16,7 @@
 						name="student_id"
 						label="Select Student"
 						:selected="$selectedStudentId"
-						:options="$supervisedStudents"
+						:options="$cleanedStudents"
 						onchange="document.getElementById('studentForm').submit()" />
 				</form>
 			</div>
