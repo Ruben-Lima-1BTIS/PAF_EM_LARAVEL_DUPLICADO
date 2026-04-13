@@ -11,14 +11,6 @@ use Carbon\Carbon;
 
 class LoghourController extends Controller
 {
-
-    private function hasLoggedForDate(int $studentId, string $date): bool
-    {
-        return Hour::where('student_id', $studentId)
-            ->whereDate('date', $date)
-            ->exists();
-    }
-
     private function formatHours(float $hours): string
     {
         $h = (int) $hours;
@@ -40,6 +32,15 @@ class LoghourController extends Controller
         return Internship::whereIn('id', $internshipIds)
             ->where('status', 'active')
             ->firstOrFail();
+    }
+
+    private function futureLogPreventionRules(string $internshipStartDate): array
+    {
+        return [
+            'date' => ['required', 'date', 'before_or_equal:today', 'after_or_equal:' . $internshipStartDate],
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+        ];
     }
 
     public function index(Request $request)
@@ -64,17 +65,26 @@ class LoghourController extends Controller
         $studentId = Auth::id();
         $internship = $this->getActiveInternship($studentId);
 
-        if ($this->hasLoggedForDate($studentId, $request->input('date'))) {
+        $rules = $this->futureLogPreventionRules($internship->start_date);
+
+        $validated = $request->validate($rules, [
+            'date.before_or_equal' => 'You cannot log hours for a future date.',
+            'date.after_or_equal' => 'Logged hours must be after your internship start date.',
+            'end_time.after' => 'End time must be after start time.',
+        ]);
+
+        if (
+            Hour::where('student_id', $studentId)
+                ->whereDate('date', $validated['date'])
+                ->exists()
+        ) {
             return back()->withErrors('You already logged hours for this day.');
         }
 
-        $validated = $request->validate([
-            'date' => ['required', 'date', 'after_or_equal:' . $internship->start_date],
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-        ]);
-
-        $hoursWorked = $this->calculateWorkedHours($validated['start_time'], $validated['end_time']);
+        $hoursWorked = $this->calculateWorkedHours(
+            $validated['start_time'],
+            $validated['end_time']
+        );
 
         if ($hoursWorked < 4) {
             return back()->withErrors('Logged hours must be at least 4 hours, excluding 1 hour for lunch.');
@@ -91,6 +101,5 @@ class LoghourController extends Controller
 
         return back()->with('success', 'Hours logged successfully!');
     }
-
 
 }
