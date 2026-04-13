@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use App\Models\Hour;
 use App\Models\User;
+use App\Models\UserClass;
+use App\Models\ClassModel;
+
 
 class HourApprovalController extends Controller
 {
@@ -49,6 +52,20 @@ class HourApprovalController extends Controller
             ->distinct()
             ->get();
 
+        // save on variable all students with their name + their class sigla
+        $cleanedStudents = [];
+        foreach ($supervisedStudents as $student) {
+            $userClass = UserClass::where('user_id', $student->id)->first();
+            $classSigla = $userClass
+                ? (ClassModel::find($userClass->class_id)->sigla ?? 'No Class')
+                : 'No Class';
+
+            $cleanedStudents[] = [
+                'id' => $student->id,
+                'name' => $student->name . ' (' . $classSigla . ')',
+            ];
+        }
+
         $selectedStudentId = $request->integer('student_id');
         $pendingHours = collect();
         $approvedHours = collect();
@@ -76,7 +93,7 @@ class HourApprovalController extends Controller
         $studentOptions = $supervisedStudents->map(fn($s) => ['id' => $s->id, 'name' => $s->name])->values()->toArray();
 
         return view('supervisor.hours_approval.index', compact(
-            'supervisedStudents',
+            'cleanedStudents',
             'selectedStudentId',
             'pendingHours',
             'approvedHours',
