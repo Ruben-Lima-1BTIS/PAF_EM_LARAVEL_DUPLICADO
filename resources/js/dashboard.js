@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     data: [stats.remainingHours, stats.pendingHours, stats.approvedHours],
                     backgroundColor: [colors.danger, colors.warning, colors.success],
                     borderColor: '#ffffff',
-                    borderWidth: 2,
+                    borderWidth: 1.5,
                     hoverOffset: 15
                 }]
             },
@@ -82,11 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     y: {
                         beginAtZero: true,
                         max: 10,
-                        grid: { color: '#F1F5F9', drawBorder: false },
+                        grid: { color: '#F1F5F9', drawBorder: true },
                         ticks: { font: chartFont, callback: (v) => v + 'h' }
                     },
                     x: {
-                        grid: { display: false },
+                        grid: { display: true, color: '#F1F5F9', drawBorder: true },
                         ticks: { font: chartFont }
                     }
                 },
@@ -100,8 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
     }
 
-    const grid = pieCtx?.closest('.grid');
-    if (grid) {
-        new ResizeObserver(() => charts.forEach(c => c.resize())).observe(grid);
-    }
+    window.addEventListener('resize', () => {
+        charts.forEach(chart => chart.resize());
+    });
 });
