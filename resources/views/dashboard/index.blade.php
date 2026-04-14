@@ -18,7 +18,68 @@
             <x-stat-card title="Internships" value="{{ $stats['totalInternships'] }}" icon="fas-briefcase" />
         </div>
     @elseif($user->isCoordinator())
-        <p>Coordinator dashboard content here</p>
+        @php
+            $classOptions = collect($stats['classes'])
+                ->map(fn($c) => ['id' => $c['id'], 'name' => $c['sigla'] . ' — ' . $c['course']])
+                ->toArray();
+        @endphp
+
+        <div class="space-y-8 w-full">
+
+            <div class="flex flex-col sm:flex-row gap-8 w-full">
+                <div class="flex-1">
+                    <x-stat-card title="My Classes" value="{{ $stats['myClasses'] }}" icon="fas-chalkboard-teacher" />
+                </div>
+                <div class="flex-1">
+                    <x-stat-card title="My Students" value="{{ $stats['myStudents'] }}" icon="fas-user-graduate" />
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6" x-data="{ selectedId: {{ $stats['classes'][0]['id'] ?? 'null' }} }">
+
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Class Overview</h3>
+
+                <x-select name="class_picker" :options="$classOptions" x-model="selectedId" />
+
+                @foreach ($stats['classes'] as $class)
+                    <div x-show="selectedId == {{ $class['id'] }}">
+                        @if (count($class['students']) === 0)
+                            <p class="text-gray-400 text-center py-8">No students in this class.</p>
+                        @else
+                            <table class="w-full text-sm text-left text-gray-700">
+                                <thead class="text-xs uppercase bg-gray-50 text-gray-500 border-b">
+                                    <tr>
+                                        <th class="px-4 py-3">Student</th>
+                                        <th class="px-4 py-3">Internship</th>
+                                        <th class="px-4 py-3 text-center">Approved</th>
+                                        <th class="px-4 py-3 text-center">Pending</th>
+                                        <th class="px-4 py-3 text-center">Remaining</th>
+                                        <th class="px-4 py-3 text-center">Reports</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($class['students'] as $student)
+                                        <tr class="border-b hover:bg-gray-50">
+                                            <td class="px-4 py-3 font-medium">{{ $student['name'] }}</td>
+                                            <td class="px-4 py-3 text-gray-500">{{ $student['internship'] ?? '—' }}</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">
+                                                {{ $student['approved_hours'] }}h</td>
+                                            <td class="px-4 py-3 text-center text-yellow-500 font-semibold">
+                                                {{ $student['pending_hours'] }}h</td>
+                                            <td class="px-4 py-3 text-center text-blue-500 font-semibold">
+                                                {{ $student['remaining_hours'] }}h</td>
+                                            <td class="px-4 py-3 text-center">{{ $student['reports_submitted'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
+                @endforeach
+
+            </div>
+
+        </div>
     @elseif($user->isSupervisor())
         <p>Supervisor dashboard content here</p>
     @elseif($user->isStudent())
