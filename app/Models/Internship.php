@@ -23,9 +23,9 @@ class Internship extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function studentAssignment()
+    public function studentAssignments()
     {
-        return $this->hasOne(UserInternship::class);
+        return $this->hasMany(UserInternship::class, 'internship_id');
     }
 
     public function supervisorAssignment()

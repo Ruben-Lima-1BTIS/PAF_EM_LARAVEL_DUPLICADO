@@ -29,4 +29,10 @@ class UserClass extends Model
         return $this->belongsTo(ClassModel::class, 'class_id');
     }
 
+    public function classes()
+    {
+        return $this->belongsToMany(ClassModel::class, 'user_classes');
+    }
+
+
 }
