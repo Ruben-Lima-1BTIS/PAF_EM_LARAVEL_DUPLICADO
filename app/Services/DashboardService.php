@@ -8,6 +8,7 @@ use App\Models\ClassModel;
 use App\Models\Internship;
 use App\Models\Hour;
 use App\Models\Report;
+use App\Models\UserClass;
 
 class DashboardService
 {
@@ -37,11 +38,113 @@ class DashboardService
 
     private function getCoordinatorStats(): array
     {
+        $coordinatorId = auth()->id();
+
+        // turmas do coordenador
+        $classIds = UserClass::where('user_id', $coordinatorId)->pluck('class_id');
+        $classes = ClassModel::whereIn('id', $classIds)->get();
+
+        if ($classIds->isEmpty()) {
+            return [
+                'myClasses' => 0,
+                'myStudents' => 0,
+                'classes' => [],
+            ];
+        }
+
+        // pegar os students usando a tabela user_classes
+        $studentIds = UserClass::whereIn('class_id', $classIds)
+            ->whereHas('user', fn($q) => $q->where('role', User::ROLE_STUDENT))
+            ->pluck('user_id')
+            ->unique();
+
+        if ($studentIds->isEmpty()) {
+            return [
+                'myClasses' => $classes->count(),
+                'myStudents' => 0,
+                'classes' => [],
+            ];
+        }
+
+        // students
+        $students = User::whereIn('id', $studentIds)
+            ->where('role', User::ROLE_STUDENT)
+            ->get()
+            ->keyBy('id');
+
+        // internships onde estao os students
+        $internships = Internship::whereHas('studentAssignments', function ($q) use ($studentIds) {
+            $q->whereIn('user_id', $studentIds);
+        })
+            ->with(['studentAssignments' => fn($q) => $q->whereIn('user_id', $studentIds)])
+            ->get()
+            ->flatMap(function ($internship) {
+                return $internship->studentAssignments->map(fn($assignment) => [
+                    'user_id' => $assignment->user_id,
+                    'internship' => $internship,
+                ]);
+            })
+            ->groupBy('user_id')
+            ->map(fn($items) => $items->first()['internship']);
+
+        // atribuir as hours a cada student
+        $hoursByStudent = Hour::whereIn('student_id', $studentIds)
+            ->selectRaw('
+            student_id,
+            status,
+            SUM(GREATEST(TIMESTAMPDIFF(MINUTE, start_time, end_time) - 60, 0)) as total_minutes
+        ')
+            ->groupBy('student_id', 'status')
+            ->get()
+            ->groupBy('student_id');
+
+        // atribuir os reports a cada student
+        $reportsCount = Report::whereIn('student_id', $studentIds)
+            ->selectRaw('student_id, COUNT(*) as total')
+            ->groupBy('student_id')
+            ->pluck('total', 'student_id');
+
+        // cria map dos dados
+        $classData = $classes->map(function ($class) use ($students, $hoursByStudent, $reportsCount, $internships, $classIds) {
+            $classStudentIds = UserClass::where('class_id', $class->id)
+                ->pluck('user_id');
+
+            $studentsData = $classStudentIds->map(function ($studentId) use ($students, $hoursByStudent, $reportsCount, $internships) {
+                $student = $students[$studentId] ?? null;
+                if (!$student)
+                    return null;
+
+                $studentHours = $hoursByStudent[$studentId] ?? collect();
+
+                $approved = ($studentHours->firstWhere('status', 'approved')->total_minutes ?? 0) / 60;
+                $pending = ($studentHours->firstWhere('status', 'pending')->total_minutes ?? 0) / 60;
+
+                $internship = $internships[$studentId] ?? null;
+                $required = $internship?->total_hours_required ?? 0;
+
+                return [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'internship' => $internship?->title ?? null,
+                    'approved_hours' => round($approved, 1),
+                    'pending_hours' => round($pending, 1),
+                    'remaining_hours' => max($required - $approved - $pending, 0),
+                    'reports_submitted' => $reportsCount[$studentId] ?? 0,
+                ];
+            })->filter()->values();
+
+            return [
+                'id' => $class->id,
+                'course' => $class->course,
+                'sigla' => $class->sigla,
+                'students' => $studentsData,
+            ];
+        });
+
         return [
-            'myStudents' => User::where('role', User::ROLE_STUDENT)
-                ->where('coordinator_id', auth()->id())
-                ->count(),
-            'myClasses' => ClassModel::where('coordinator_id', auth()->id())->count(),
+            'myClasses' => $classes->count(),
+            'myStudents' => $studentIds->count(),
+            'classes' => $classData,
         ];
     }
 
