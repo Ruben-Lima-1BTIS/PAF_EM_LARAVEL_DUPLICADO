@@ -28,4 +28,10 @@ class ClassModel extends Model
         return $this->hasMany(User::class, 'class_id')
             ->where('role', 'student');
     }
+        public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_classes');
+    }
+
+
 }
