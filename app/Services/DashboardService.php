@@ -152,7 +152,7 @@ class DashboardService
     {
         $studentId = auth()->id();
 
-        $internship = Internship::whereHas('studentAssignment', function ($q) use ($studentId) {
+        $internship = Internship::whereHas('studentAssignments', function ($q) use ($studentId) {
             $q->where('user_id', $studentId);
         })->first();
 
