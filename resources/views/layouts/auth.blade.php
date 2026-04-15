@@ -45,12 +45,6 @@
                     'roles' => ['supervisor']
                 ],
                 [
-                    'name' => 'Check Class Progress',
-                    'route' => 'dashboard.index',
-                    'icon' => 'users',
-                    'roles' => ['coordinator']
-                ],
-                [
                     'name' => 'Check Reports',
                     'route' => 'dashboard.index',
                     'icon' => 'file',
@@ -71,7 +65,7 @@
         <nav
             class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 bg-white border-b border-gray-300">
             <a href="{{ route('dashboard.index') }}" class="flex items-center space-x-3">
-                <div class="bg-blue-600 text-white font-bold text-[1.1rem] px-3 py-[0.35rem] rounded-[0.6rem]">
+                <div class="bg-neutral-400 text-white font-bold text-[1.1rem] px-3 py-[0.35rem] rounded-[0.6rem]">
                     IH
                 </div>
                 <span class="text-[1.15rem] font-bold text-slate-900">InternHub</span>
@@ -81,7 +75,7 @@
                 <button onclick="document.getElementById('userDropdown').classList.toggle('hidden')"
                     class="flex items-center gap-2 px-[0.85rem] py-[0.45rem] rounded-[0.6rem] font-medium text-[0.9rem] text-slate-900 bg-transparent transition-colors hover:bg-blue-50 cursor-pointer">
                     <span>{{ auth()->user()->name }}</span>
-                    <x-dynamic-component :component="'fas-chevron-down'" class="w-3 h-3 text-gray-400" />
+                    <x-dynamic-component :component="'fas-chevron-down'" class="w-3 h-3 text-neutral-400" />
                 </button>
 
                 <div id="userDropdown" class="absolute right-0 top-full mt-2 w-44 
@@ -93,7 +87,7 @@
                             text-[0.85rem] text-slate-700 
                             bg-transparent cursor-pointer 
                             transition-colors 
-                            hover:bg-blue-50 hover:text-blue-700">
+                            hover:bg-neutral-200 hover:text-slate-900">
                         <x-dynamic-component :component="'fas-gear'" class="w-4 h-4" />
                         <span>Settings</span>
                     </a>
@@ -105,7 +99,7 @@
                             text-[0.85rem] text-slate-700 
                             bg-transparent cursor-pointer 
                             transition-colors 
-                            hover:bg-blue-50 hover:text-blue-700">
+                            hover:bg-neutral-200 hover:text-slate-900">
                             <x-dynamic-component :component="'fas-right-from-bracket'" class="w-4 h-4" />
                             <span>Logout</span>
                         </button>
@@ -119,13 +113,13 @@
             <nav class="space-y-5">
                 @foreach($options as $group => $links)
                     <div>
-                        <h3 class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-[0.08em] px-3 mb-[0.35rem]">
+                        <h3 class="text-[0.65rem] font-bold text-slate-500 uppercase tracking-[0.08em] px-3 mb-[0.35rem]">
                             {{ ucfirst($group) }}</h3>
 
                         <div class="space-y-0.5">
                             @foreach($links as $link)
                                 @if(in_array(auth()->user()->role, $link['roles']))
-                                    <a href="{{ route($link['route']) }}" class="flex items-center gap-[0.65rem] px-3 py-[0.55rem] rounded-[0.6rem] text-sm font-medium text-slate-600 transition-colors hover:bg-blue-50 hover:text-blue-600 [&.active]:bg-blue-100 [&.active]:text-blue-700
+                                    <a href="{{ route($link['route']) }}" class="flex items-center gap-[0.65rem] px-3 py-[0.55rem] rounded-[0.6rem] text-sm font-medium text-slate-600 transition-colors hover:bg-neutral-200 hover:text-slate-900 [&.active]:bg-neutral-200 [&.active]:text-slate-900
                                                 {{ request()->routeIs($link['route']) ? 'active' : '' }}">
 
                                         @if($link['icon'])
@@ -144,7 +138,7 @@
             </nav>
         </aside>
 
-        <div class="ml-64 pt-16 bg-blue-50">
+        <div class="ml-64 pt-16 bg-slate-50">
             <main class="p-6 overflow-y-auto">
                 @yield('content')
             </main>

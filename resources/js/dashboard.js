@@ -2,9 +2,9 @@ import Chart from 'chart.js/auto';
 
 document.addEventListener('DOMContentLoaded', () => {
     const stats = window.dashboardStats || {
-        remainingHours: 0,
-        pendingHours: 0,
         approvedHours: 0,
+        pendingHours: 0,
+        remainingHours: 0,
         weeklyHours: [0, 0, 0, 0, 0],
         minHoursDay: 6
     };
@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const chartFont = { size: 16, weight: '600' };
 
     const colors = {
-        danger: '#EF4444',
-        warning: '#F59E0B',
-        success: '#10B981',
-        neutral: '#9fa9b8',
-        primary: '#3B82F6',
+        danger: '#c71616',
+        warning: '#db8f0a',
+        success: '#117554',
+        neutral: '#8c8e91',
+        primary: '#1f62ce',
     };
 
     const charts = [];
@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         charts.push(new Chart(pieCtx, {
             type: 'pie',
             data: {
-                labels: ['Missing', 'Pending', 'Approved'],
+                labels: ['Approved', 'Pending', 'Missing'],
                 datasets: [{
-                    data: [stats.remainingHours, stats.pendingHours, stats.approvedHours],
-                    backgroundColor: [colors.danger, colors.warning, colors.success],
+                    data: [stats.approvedHours , stats.pendingHours, stats.remainingHours],
+                    backgroundColor: [colors.success, colors.warning, colors.danger],
                     borderColor: '#ffffff',
                     borderWidth: 1.5,
                     hoverOffset: 15

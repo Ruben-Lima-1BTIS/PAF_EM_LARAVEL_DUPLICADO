@@ -22,7 +22,6 @@ class DashboardService
             default => [],
         };
     }
-
     private function getAdminStats(): array
     {
         return [
@@ -35,7 +34,6 @@ class DashboardService
             'totalInternships' => Internship::count(),
         ];
     }
-
     private function getCoordinatorStats(): array
     {
         $coordinatorId = auth()->id();
@@ -147,7 +145,6 @@ class DashboardService
             'classes' => $classData,
         ];
     }
-
     private function getStudentStats(): array
     {
         $studentId = auth()->id();

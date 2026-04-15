@@ -33,7 +33,6 @@
 			<x-stat-card title="Approved Hours" :value="$stats['approvedHoursCount'].'h'" color="green" />
 		</div>
 
-
 		<!-- tabelas agora são componentes -->
 		
 		<x-pending-hours-table :hours="$pendingHours" />

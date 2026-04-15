@@ -60,15 +60,18 @@
                                 <tbody>
                                     @foreach ($class['students'] as $student)
                                         <tr class="border-b hover:bg-gray-50">
-                                            <td class="px-4 py-3 font-medium">{{ $student['name'] }}</td>
-                                            <td class="px-4 py-3 text-gray-500">{{ $student['internship'] ?? '—' }}</td>
-                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">
+                                            <td class="px-4 py-3 text-slate-900 font-semibold">
+                                                {{ $student['name'] }}</td>
+                                            <td class="px-4 py-3 text-slate-900 font-semibold">
+                                                {{ $student['internship'] ?? '—' }}</td>
+                                            <td class="px-4 py-3 text-center text-slate-900 font-semibold">
                                                 {{ $student['approved_hours'] }}h</td>
-                                            <td class="px-4 py-3 text-center text-yellow-500 font-semibold">
+                                            <td class="px-4 py-3 text-center text-slate-900 font-semibold">
                                                 {{ $student['pending_hours'] }}h</td>
-                                            <td class="px-4 py-3 text-center text-blue-500 font-semibold">
+                                            <td class="px-4 py-3 text-center text-slate-900 font-semibold">
                                                 {{ $student['remaining_hours'] }}h</td>
-                                            <td class="px-4 py-3 text-center">{{ $student['reports_submitted'] }}</td>
+                                            <td class="px-4 py-3 text-center text-slate-900 font-semibold">
+                                                {{ $student['reports_submitted'] }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -126,9 +129,9 @@
         @php $weeklyHours = $stats['weeklyHours'] ?? [0, 0, 0, 0, 0]; @endphp
         <script>
             window.dashboardStats = {
+                approvedHours: {{ (int) ($stats['approvedHours'] ?? 0) }},
                 remainingHours: {{ (int) ($stats['remainingHours'] ?? 0) }},
                 pendingHours: {{ (int) ($stats['pendingHours'] ?? 0) }},
-                approvedHours: {{ (int) ($stats['approvedHours'] ?? 0) }},
                 weeklyHours: @json($weeklyHours),
                 minHoursDay: 6
             };

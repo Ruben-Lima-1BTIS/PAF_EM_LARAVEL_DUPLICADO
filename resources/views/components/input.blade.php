@@ -33,7 +33,7 @@
         'rounded-lg p-2 w-full focus:ring-2 focus:outline-none border ' .
         ($errors->has($name)
             ? 'border-red-500 focus:ring-red-400'
-            : 'border-gray-300 focus:ring-blue-400')
+            : 'border-gray-300 focus:ring-gray-400')
 ]) }}
 >
 @error($name)

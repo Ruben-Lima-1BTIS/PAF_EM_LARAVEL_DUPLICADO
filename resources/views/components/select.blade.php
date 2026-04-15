@@ -17,7 +17,7 @@
     {{ $required ? 'required' : '' }}
     {{ $attributes->merge([
         'id' => $attributes->get('id') ?? $name,
-        'class' => 'border p-2 w-full mb-4'
+        'class' => 'border border-gray-300 rounded-lg p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-slate-500'
     ]) }}>
     <option value="">Select an option</option>
 

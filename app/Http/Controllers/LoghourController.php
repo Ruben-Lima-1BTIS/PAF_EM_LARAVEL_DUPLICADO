@@ -57,7 +57,10 @@ class LoghourController extends Controller
 
         $totalHoursFormatted = $this->formatHours($totalHours);
 
-        return view('student.hours.index', compact('logs', 'totalHoursFormatted'));
+        // take the last 10 logs for display
+        $logsLimitedForDisplay = $logs->take(10);
+
+        return view('student.hours.index', compact('logs', 'totalHoursFormatted', 'logsLimitedForDisplay'));
     }
 
     public function store(Request $request)

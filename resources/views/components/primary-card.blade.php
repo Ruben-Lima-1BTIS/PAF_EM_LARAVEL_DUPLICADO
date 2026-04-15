@@ -4,7 +4,7 @@
     'class' => "
         bg-white
         rounded-2xl
-        border border-blue-100
+        border border-slate-300
         shadow-[0_1px_3px_rgba(59,130,246,0.1)]
         transition-all duration-200
         p-8

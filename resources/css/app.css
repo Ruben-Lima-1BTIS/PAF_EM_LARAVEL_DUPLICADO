@@ -26,7 +26,7 @@
 
 .btn-submit {
     width: 100%;
-    color: #fff;
+    color: #000000;
     border: none;
     padding: 0.75rem 1rem;
     border-radius: 0.75rem;
@@ -61,23 +61,24 @@
 .badge-approved { background: #dcfce7; color: #15803d; }
 .badge-rejected { background: #fee2e2; color: #b91c1c; }
 .badge-default { background: #f1f5f9; color: #475569; }
-.badge-placeholder { background: #e0e7ff; color: #6366f1; padding: 0.25rem 0.5rem; }
+.badge-placeholder { background: #aebff7; color: #000000f1; padding: 0.25rem 0.5rem; }
 
 
 /* para upload de ficheiro*/
 .file-upload-wrapper {
     position: relative;
+    margin-top: 0.75rem;
     border: 2px dashed #dbeafe;
     border-radius: 0.75rem;
     padding: 1.5rem 1rem;
     text-align: center;
-    background: #eff6ff;
+    background: #e5e5e5;
     cursor: pointer;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .file-upload-wrapper:hover {
-    border-color: #3b82f6;
+    border-color: #ffffff;
     background: #e0f2fe;
 }
 
@@ -94,7 +95,7 @@
     width: 36px;
     height: 36px;
     margin: 0 auto 0.6rem;
-    color: #3b82f6;
+    color: #334155;
 }
 
 .file-upload-text {
@@ -103,7 +104,7 @@
 }
 
 .file-upload-text strong {
-    color: #2563eb;
+    color: #000000;
 }
 
 .file-upload-hint {
@@ -116,7 +117,7 @@
     margin-top: 0.75rem;
     font-size: 0.78rem;
     font-family: 'JetBrains Mono', monospace;
-    color: #2563eb;
+    color: #e5e5e5;
     background: #e0f2fe;
     border: 1px solid #dbeafe;
     border-radius: 0.5rem;

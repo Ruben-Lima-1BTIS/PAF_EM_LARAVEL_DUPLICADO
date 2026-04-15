@@ -1,14 +1,13 @@
 @extends('layouts.auth')
 @section('content')
 
-  <div class="min-h-screen bg-blue-50">
+  <div class="min-h-screen bg-gray-50">
     <div class="max-w-6xl mx-auto p-6 space-y-8 fade-up">
 
       <x-page-header title="Submit Report" subtitle="Upload your internship progress reports" />
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 fade-up">
 
-        <!-- New Report Form -->
         <x-primary-card class="lg:col-span-2">
           <div class="p-7">
             <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-black mb-1">Upload</p>
@@ -29,21 +28,19 @@
                 <div id="file-name-display"></div>
               </div>
 
-              <x-submit-button type="submit" color="bg-blue-600 hover:bg-blue-700">
+              <x-submit-button type="submit" color="bg-neutral-300 hover:bg-neutral-450 text-black">
                 Submit Report
               </x-submit-button>
             </form>
           </div>
         </x-primary-card>
 
-        <!-- Total Reports Stat -->
         <x-primary-card class="lg:col-span-1">
           <x-primary-stat-card title="Total Reports Submitted" :value="$totalReports" icon="fas-file-alt" />
         </x-primary-card>
 
       </div>
 
-      <!-- Reports History -->
       <x-primary-card class="lg:col-span-3">
         <div class="p-7">
           <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-black mb-1">History</p>
@@ -77,7 +74,7 @@
                     ][$status] ?? 'badge-default';
                   @endphp
 
-                  <tr class="border-t border-blue-100 transition-colors duration-150 hover:bg-blue-50">
+                  <tr class="border-t border-gray-300 transition-colors duration-150 hover:bg-gray-100">
                     <td class="px-3 py-3 text-[0.85rem] text-black">
                       <a href="{{ asset($report->file_path) }}" class="file-link" target="_blank">
                         {{ $report->original_name }}
@@ -93,7 +90,7 @@
                           {{ $report->reviewer->name }}
                         </span>
                       @else
-                        <span class="text-blue-100">—</span>
+                        <span class="text-gray-200">—</span>
                       @endif
                     </td>
                     <td class="px-3 py-3 text-[0.85rem] text-black truncate max-w-[200px]"
@@ -108,7 +105,7 @@
                   <tr>
                     <td colspan="5" class="py-10">
                       <div class="flex flex-col items-center justify-center gap-3 text-center">
-                        <x-dynamic-component :component="'fas-folder-open'" class="w-9 h-9 text-blue-300" />
+                        <x-dynamic-component :component="'fas-folder-open'" class="w-9 h-9 text-slate-700" />
                         <p class="text-[0.9rem] text-slate-500">No reports submitted yet.</p>
                       </div>
                     </td>
