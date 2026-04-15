@@ -7,7 +7,9 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <script src="//unpkg.com/alpinejs" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+        rel="stylesheet">
 </head>
 @stack('scripts')
 <style>
@@ -15,20 +17,20 @@
         font-family: 'Google Sans', sans-serif;
     }
 </style>
+
 <body class="bg-gray-50">
 
     <div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3 items-end">
 
-    @if(session('success'))
-        <x-toast-notification type="success" :message="session('success')" />
-    @endif
+        @if (session('success'))
+            <x-toast-notification type="success" :message="session('success')" />
+        @endif
 
-    @if($errors->any())
-        <x-toast-notification type="error" :message="$errors->first()" />
-    @endif
+        @if ($errors->any())
+            <x-toast-notification type="error" :message="$errors->first()" />
+        @endif
 
     </div>
-
 
     <div class="overflow-hidden bg-white shadow-sm rounded-lg">
         @yield('section')

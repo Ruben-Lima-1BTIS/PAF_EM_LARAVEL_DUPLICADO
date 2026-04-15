@@ -26,8 +26,15 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        if ($user->first_login) {
+            return redirect()->route('password.change');
+        }
+
         return redirect()->route('dashboard.index');
     }
+
 
     public function logout(Request $request)
     {

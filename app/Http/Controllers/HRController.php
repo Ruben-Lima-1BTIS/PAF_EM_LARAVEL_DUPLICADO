@@ -9,6 +9,9 @@ use App\Models\Internship;
 use App\Models\User;
 use App\Models\UserClass;
 use App\Models\UserInternship;
+use App\Mail\UserCreatedMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\PendingMail;
 
 
 class HRController extends Controller
@@ -59,16 +62,15 @@ class HRController extends Controller
         ]);
 
         try {
-            $user = User::create(
-                $validated
-            );
+            $user = User::create($validated);
             if ($validated['role'] == "student") {
                 $validated2['user_id'] = $user->id;
                 UserClass::create($validated2);
             }
         } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage());
+            dd($e);
         }
+
 
         return back()->with('success', 'User created successfully!');
     }
@@ -94,7 +96,6 @@ class HRController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
-
 
     public function createInternship(Request $request)
     {
@@ -126,7 +127,7 @@ class HRController extends Controller
         ]);
 
         try {
-            User::create([
+            $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => $validated['password'],
@@ -134,8 +135,6 @@ class HRController extends Controller
                 'company_id' => $validated['company_id'],
                 'first_login' => 1,
             ]);
-        } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage());
         }
 
         return back()->with('success', 'Supervisor created successfully!');
@@ -150,21 +149,20 @@ class HRController extends Controller
             'class_id' => 'required|exists:classes,id',
         ]);
 
-        try {
-            User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => $validated['password'],
-                'role' => User::ROLE_STUDENT,
-                'class_id' => $validated['class_id'],
-                'first_login' => 1,
-            ]);
-        } catch (\Exception $e) {
-            return back()->withErrors($e->getMessage());
-        }
+        $rawPassword = $validated['password'];
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $rawPassword,
+            'role' => User::ROLE_STUDENT,
+            'class_id' => $validated['class_id'],
+            'first_login' => 1,
+        ]);
 
         return back()->with('success', 'Student created successfully!');
     }
+
 
     public function assignUserInternship(Request $request)
     {

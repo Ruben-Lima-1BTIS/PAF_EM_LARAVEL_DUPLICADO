@@ -12,7 +12,7 @@
                     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">
                         Welcome back
                     </h1>
-                    <p class="text-slate-500 mt-2 text-sm">
+                    <p class="text-slate-900 mt-2 text-sm">
                         Sign in to your InternHub account
                     </p>
                 </div>
@@ -27,7 +27,7 @@
                         <x-input name="password" label="Password" type="password" required autocomplete="current-password"
                             placeholder="Enter your password" />
 
-                        <x-submit-button type="submit"> Login </x-submit-button>
+                        <x-submit-button type="submit" color="bg-neutral-400 hover:bg-neutral-400"> Login </x-submit-button>
                     </form>
                 </x-auth-card>
 

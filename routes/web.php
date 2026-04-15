@@ -9,6 +9,7 @@ use App\Http\Controllers\LoghourController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HourApprovalController;
+use App\Http\Controllers\UserController;
 
 // ---------- PUBLIC GUEST ----------
 Route::middleware(['guest'])->group(function () {
@@ -63,4 +64,44 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/hour-approval/{id}/approve', [HourApprovalController::class, 'approve'])->name('hour.approve');
         Route::post('/hour-approval/{id}/reject', [HourApprovalController::class, 'reject'])->name('hour.reject');
     });
+
+
+    Route::get('/password/change', fn() => view('auth.change-password'))
+        ->name('password.change')
+        ->middleware('auth');
+
+    Route::post('/password/change', [UserController::class, 'changePassword'])
+        ->name('password.change.post')
+        ->middleware('auth');
+
+
+    Route::get('/test-mail', function () {
+        try {
+            \Mail::raw('Test email from Laravel', function ($msg) {
+                $msg->to('limaruben2006@gmail.com')->subject('Mail Test');
+            });
+            return 'Mail sent!';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    });
+
+    // just for debugging purposes
+    Route::get('/mail-debug', function () {
+        dd(config('mail.mailer'), config('mail.default'));
+    });
+
+    Route::get('/mail-force-test', function () {
+        try {
+            Mail::raw('FORCE TEST EMAIL', function ($m) {
+                $m->to('limaruben2006@gmail.com')
+                    ->subject('FORCE TEST');
+            });
+
+            return 'sent';
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+    });
+
 });
