@@ -73,11 +73,12 @@ class LoghourController extends Controller
             'end_time.after' => 'End time must be after start time.',
         ]);
 
-        if (
-            Hour::where('student_id', $studentId)
-                ->whereDate('date', $validated['date'])
-                ->exists()
-        ) {
+        $hoursQuery = Hour::where('student_id', $studentId)
+            ->whereDate('date', $validated['date']);
+
+        $hoursQuery->clone()->where('status', 'rejected')->delete();
+
+        if ($hoursQuery->clone()->where('status', '!=', 'rejected')->exists()) {
             return back()->withErrors('You already logged hours for this day.');
         }
 
