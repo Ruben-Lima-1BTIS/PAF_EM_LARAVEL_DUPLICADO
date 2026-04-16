@@ -9,10 +9,9 @@ use App\Models\Internship;
 use App\Models\User;
 use App\Models\UserClass;
 use App\Models\UserInternship;
+use Illuminate\Support\Facades\Hash;
 use App\Mail\UserCreatedMail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Mail\PendingMail;
-
 
 class HRController extends Controller
 {
@@ -57,6 +56,8 @@ class HRController extends Controller
             'company_id' => 'nullable|integer|max:50',
         ]);
 
+        $rawPassword = $validated['password'];
+
         $validated2 = $request->validate([
             'class_id' => 'nullable|integer|max:50',
         ]);
@@ -71,6 +72,7 @@ class HRController extends Controller
             dd($e);
         }
 
+        Mail::to($user->email)->send(new UserCreatedMail($user->email, $rawPassword));
 
         return back()->with('success', 'User created successfully!');
     }
@@ -126,16 +128,23 @@ class HRController extends Controller
             'company_id' => 'required|exists:companies,id',
         ]);
 
+
+        $rawPassword = $validated['password'];
+
         try {
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
-                'password' => $validated['password'],
+                'password' => Hash::make($rawPassword),
                 'role' => User::ROLE_SUPERVISOR,
                 'company_id' => $validated['company_id'],
                 'first_login' => 1,
             ]);
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage());
         }
+
+
 
         return back()->with('success', 'Supervisor created successfully!');
     }
@@ -151,14 +160,18 @@ class HRController extends Controller
 
         $rawPassword = $validated['password'];
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $rawPassword,
-            'role' => User::ROLE_STUDENT,
-            'class_id' => $validated['class_id'],
-            'first_login' => 1,
-        ]);
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($rawPassword),
+                'role' => User::ROLE_STUDENT,
+                'class_id' => $validated['class_id'],
+                'first_login' => 1,
+            ]);
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
 
         return back()->with('success', 'Student created successfully!');
     }
