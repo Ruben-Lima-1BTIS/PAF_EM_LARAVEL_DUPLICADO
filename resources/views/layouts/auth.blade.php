@@ -15,8 +15,14 @@
 
             'Funcionalidades' => [
                 [
-                    'name' => 'Backstage HR',
-                    'route' => 'hr.index',
+                    'name' => 'Create Records',
+                    'route' => 'hr.create-records',
+                    'icon' => 'tools',
+                    'roles' => ['admin']
+                ],
+                [
+                    'name' => 'Manage Records',
+                    'route' => 'hr.delete-records', // change to actual manage route when implemented
                     'icon' => 'tools',
                     'roles' => ['admin']
                 ],
