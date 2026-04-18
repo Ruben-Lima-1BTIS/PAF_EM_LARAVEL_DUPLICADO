@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Mail;
 
 class HRController extends Controller
 {
-    public function index()
+
+    public function create()
     {
-        return view('hr.index', [
+        return view('hr.create-records', [
             'coordinators' => User::where('role', User::ROLE_COORDINATOR)->get(),
             'companies' => Company::all(),
             'classes' => ClassModel::all(),
@@ -27,6 +28,17 @@ class HRController extends Controller
         ]);
     }
 
+    public function delete()
+    {
+        return view('hr.delete-records', [
+            'coordinators' => User::where('role', User::ROLE_COORDINATOR)->get(),
+            'supervisors' => User::where('role', User::ROLE_SUPERVISOR)->get(),
+            'students' => User::where('role', User::ROLE_STUDENT)->with('userClass')->get(),
+            'companies' => Company::all(),
+            'classes' => ClassModel::all(),
+            'internships' => Internship::all(),
+        ]);
+    }
     public function createCompany(Request $request)
     {
         $request->validate([
@@ -207,4 +219,121 @@ class HRController extends Controller
 
         return back()->with('success', 'User assigned to internship successfully!');
     }
+
+    /*
+    supervisor
+    student
+    coordinator
+    company
+    internship
+    class
+    unassing student/supervisor from internship
+    (in case of mistake or change of internship)
+    (if student changes internship, it should maintain the hours already logged, but just change the internship_id in the user_internship pivot table when assigning the new internship)
+    */
+
+    public function deleteSupervisor(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        User::where('id', $request->user_id)
+            ->where('role', User::ROLE_SUPERVISOR)
+            ->firstOrFail()
+            ->delete();
+
+        return back()->with('success', 'Supervisor deleted successfully!');
+    }
+
+    public function deleteStudent(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        User::where('id', $request->user_id)
+            ->where('role', User::ROLE_STUDENT)
+            ->firstOrFail()
+            ->delete();
+
+        return back()->with('success', 'Student deleted successfully!');
+    }
+
+    public function deleteCoordinator(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        User::where('id', $request->user_id)
+            ->where('role', User::ROLE_COORDINATOR)
+            ->firstOrFail()
+            ->delete();
+
+        return back()->with('success', 'Coordinator deleted successfully!');
+    }
+
+    public function deleteCompany(Request $request)
+    {
+        $request->validate([
+            'company_id' => 'required|exists:companies,id',
+        ]);
+
+        Company::findOrFail($request->company_id)->delete();
+
+        return back()->with('success', 'Company deleted successfully!');
+    }
+
+    public function deleteClass(Request $request)
+    {
+        $request->validate([
+            'class_id' => 'required|exists:classes,id',
+        ]);
+
+        ClassModel::findOrFail($request->class_id)->delete();
+
+        return back()->with('success', 'Class deleted successfully!');
+    }
+
+    public function deleteInternship(Request $request)
+    {
+        $request->validate([
+            'internship_id' => 'required|exists:internships,id',
+        ]);
+
+        Internship::findOrFail($request->internship_id)->delete();
+
+        return back()->with('success', 'Internship deleted successfully!');
+    }
+
+    public function unassignUserInternship(Request $request)
+    {
+        $request->validate([
+            'role' => 'required|in:student,supervisor',
+            'internship_id' => 'required|exists:internships,id',
+        ]);
+
+        $userId = $request->role === 'student'
+            ? $request->student_id
+            : $request->supervisor_id;
+
+        if (!$userId) {
+            return back()->withErrors('Please select a user.');
+        }
+
+        $assignment = UserInternship::where('user_id', $userId)
+            ->where('internship_id', $request->internship_id)
+            ->first();
+
+        if (!$assignment) {
+            return back()->withErrors('This user is not assigned to this internship.');
+        }
+
+        $assignment->delete();
+
+        return back()->with('success', 'User unassigned from internship successfully!');
+    }
+
+
 }
