@@ -88,7 +88,7 @@
                         bg-white border border-gray-300 rounded-xl 
                         shadow-[0_8px_24px_rgba(30,64,175,0.1)] 
                         overflow-hidden z-50 hidden">
-                    <a href="{{ route('dashboard.index') }}" class="flex items-center gap-[0.6rem] w-full 
+                    <a href="{{ route('settings.index') }}" class="flex items-center gap-[0.6rem] w-full 
                             px-4 py-[0.65rem] text-left 
                             text-[0.85rem] text-slate-700 
                             bg-transparent cursor-pointer 
