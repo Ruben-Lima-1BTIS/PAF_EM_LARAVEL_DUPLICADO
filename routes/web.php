@@ -10,6 +10,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HourApprovalController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingsController;
 
 // routes that dont require authentication
 Route::middleware(['guest'])->group(function () {
@@ -27,6 +28,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+
+    // route for settings page
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingsController::class, 'update'])->name('settings.update');
+    Route::post('/settings/password', [SettingsController::class, 'updatePassword'])->name('settings.password.update');
 
     // route only for admins
     Route::middleware('role:admin')->group(function () {
