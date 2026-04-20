@@ -36,8 +36,11 @@
                                 onsubmit="return confirm('Delete {{ $student->name }}?')">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ $student->id }}">
-                                <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100 text-red-600">
-                                    <x-fas-trash class="w-3 h-3" /> Delete
+                                <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100">
+                                    <span class="flex items-center gap-1 text-red-600">
+                                        <x-fas-trash class="w-3 h-3 text-red-600" />
+                                        Delete
+                                    </span>
                                 </x-submit-button>
                             </form>
                         </div>
@@ -63,8 +66,11 @@
                             onsubmit="return confirm('Delete {{ $supervisor->name }}?')">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $supervisor->id }}">
-                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100 text-red-600">
-                                <x-fas-trash class="w-3 h-3" /> Delete
+                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100">
+                                <span class="flex items-center gap-1 text-red-600">
+                                    <x-fas-trash class="w-3 h-3 text-red-600" />
+                                    Delete
+                                </span>
                             </x-submit-button>
                         </form>
                     </div>
@@ -87,8 +93,11 @@
                             onsubmit="return confirm('Delete {{ $coordinator->name }}?')">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $coordinator->id }}">
-                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100 text-red-600">
-                                <x-fas-trash class="w-3 h-3" /> Delete
+                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100">
+                                <span class="flex items-center gap-1 text-red-600">
+                                    <x-fas-trash class="w-3 h-3 text-red-600" />
+                                    Delete
+                                </span>
                             </x-submit-button>
                         </form>
                     </div>
@@ -111,8 +120,11 @@
                             onsubmit="return confirm('Delete {{ $company->name }}?')">
                             @csrf
                             <input type="hidden" name="company_id" value="{{ $company->id }}">
-                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100 text-red-600">
-                                <x-fas-trash class="w-3 h-3" /> Delete
+                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100">
+                                <span class="flex items-center gap-1 text-red-600">
+                                    <x-fas-trash class="w-3 h-3 text-red-600" />
+                                    Delete
+                                </span>
                             </x-submit-button>
                         </form>
                     </div>
@@ -135,8 +147,11 @@
                             onsubmit="return confirm('Delete {{ $class->sigla }}?')">
                             @csrf
                             <input type="hidden" name="class_id" value="{{ $class->id }}">
-                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100 text-red-600">
-                                <x-fas-trash class="w-3 h-3" /> Delete
+                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100">
+                                <span class="flex items-center gap-1 text-red-600">
+                                    <x-fas-trash class="w-3 h-3 text-red-600" />
+                                    Delete
+                                </span>
                             </x-submit-button>
                         </form>
                     </div>
@@ -159,8 +174,11 @@
                             onsubmit="return confirm('Delete {{ $internship->title }}?')">
                             @csrf
                             <input type="hidden" name="internship_id" value="{{ $internship->id }}">
-                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100 text-red-600">
-                                <x-fas-trash class="w-3 h-3" /> Delete
+                            <x-submit-button type="submit" color="bg-red-50 hover:bg-red-100">
+                                <span class="flex items-center gap-1 text-red-600">
+                                    <x-fas-trash class="w-3 h-3 text-red-600" />
+                                    Delete
+                                </span>
                             </x-submit-button>
                         </form>
                     </div>
