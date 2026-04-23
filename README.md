@@ -1,4 +1,4 @@
-# PAF EM LARAVEL DUPLICADO
+# PAF EM LARAVEL
 
 <p align="center">
   <a href="https://laravel.com" target="_blank">
@@ -14,66 +14,76 @@
 
 ---
 
-## 📋 About This Project
+## About This Project
 
-A robust Laravel application built for enterprise-level project management and administration. This project leverages modern PHP and Laravel technologies with a strong focus on maintainability and performance.
+A Laravel application built for enterprise-level project management and administration. The project is built on modern PHP and Laravel conventions, with an emphasis on maintainability, clarity, and performance.
 
 ### Key Features
 
-- ✨ **Comprehensive Admin Panel** - Full-featured dashboard for management
-- 🔐 **Secure Authentication** - Role-based access control (RBAC)
-- 📊 **Data Management** - Advanced database queries and relationships
-- 🚀 **Performance Optimized** - Efficient blade templating and asset handling
-- 📱 **Responsive Design** - Mobile-friendly interface
+- **Admin Panel** — A full-featured dashboard for managing application data and users.
+- **Authentication & Access Control** — Role-based access control (RBAC) to manage permissions across different user types.
+- **Data Management** — Advanced database queries and Eloquent relationships for efficient data handling.
+- **Performance** — Optimised Blade templating and asset compilation for fast page loads.
+- **Responsive Interface** — Mobile-friendly layout suitable for all screen sizes.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Backend:** PHP 8.1+, Laravel 10.x
-- **Frontend:** Blade Templates (56.9%), JavaScript (1.5%), CSS (1.3%)
-- **Database:** MySQL/PostgreSQL
-- **Build Tools:** Node.js, npm
+| Layer | Technology |
+|-------|-----------|
+| Backend | PHP 8.1+, Laravel 10.x |
+| Frontend | Blade Templates, JavaScript, CSS |
+| Database | MySQL or PostgreSQL |
+| Build Tools | Node.js, npm |
 
 ---
 
-## 📦 Requirements
+## Requirements
+
+Before getting started, ensure the following are installed on your system:
 
 - PHP 8.1 or higher
 - Composer
-- Node.js & npm
+- Node.js and npm
 - MySQL or PostgreSQL
 - Git
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/Ruben-Lima-1BTIS/PAF_EM_LARAVEL_DUPLICADO.git
 cd PAF_EM_LARAVEL_DUPLICADO
 ```
 
 ### 2. Install PHP dependencies
+
 ```bash
 composer install
 ```
 
 ### 3. Install JavaScript dependencies
+
 ```bash
 npm install
 ```
 
-### 4. Environment setup
+### 4. Set up the environment file
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-### 5. Configure your database
-Edit `.env` and set your database credentials:
-```
+### 5. Configure the database
+
+Open the `.env` file and update the following values to match your local database setup:
+
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -82,71 +92,77 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 6. Run migrations
+### 6. Run database migrations
+
 ```bash
 php artisan migrate
 ```
 
-### 7. Build assets
+### 7. Compile assets
+
 ```bash
+# For local development:
 npm run dev
-# or for production:
+
+# For production:
 npm run build
 ```
 
 ### 8. Start the development server
+
 ```bash
 php artisan serve
 ```
 
-Visit `http://localhost:8000`
+The application will be available at `http://localhost:8000`.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-├── app/                    # Application logic (Models, Controllers, Services)
+├── app/                    # Core application logic (Models, Controllers, Services)
 ├── resources/
-│   ├── views/             # Blade templates (56.9% of codebase)
-│   ├── css/               # CSS styles (1.3%)
-│   └── js/                # JavaScript files (1.5%)
-├── routes/                # Web and API routes
-├── database/              # Migrations and seeders
-├── public/                # Public-facing assets
-├── config/                # Application configuration
-├── tests/                 # Unit and feature tests
-└── .env.example           # Environment template
+│   ├── views/              # Blade templates
+│   ├── css/                # Stylesheets
+│   └── js/                 # JavaScript source files
+├── routes/                 # Web and API route definitions
+├── database/               # Migrations and seeders
+├── public/                 # Publicly accessible assets
+├── config/                 # Application configuration files
+├── tests/                  # Unit and feature tests
+└── .env.example            # Environment configuration template
 ```
 
 ---
 
-## 🔧 Usage
+## Common Commands
 
-### Running tests
+| Command | Description |
+|---------|-------------|
+| `php artisan serve` | Start the local development server |
+| `php artisan migrate` | Run all pending database migrations |
+| `php artisan db:seed` | Seed the database with sample data |
+| `php artisan tinker` | Open the interactive REPL shell |
+| `php artisan test` | Run the test suite |
+| `php artisan cache:clear` | Clear the application cache |
+| `php artisan config:clear` | Clear the configuration cache |
+| `npm run dev` | Build assets for development |
+| `npm run build` | Build and minify assets for production |
+
+---
+
+## Running Tests
+
 ```bash
 php artisan test
 ```
 
-### Database seeding
-```bash
-php artisan db:seed
-```
-
-### Clear cache
-```bash
-php artisan cache:clear
-php artisan config:clear
-```
-
-### Compile assets for production
-```bash
-npm run build
-```
-
 ---
 
-## 📚 Documentation
+## Documentation
+
+For more information on the frameworks and tools used in this project, refer to the official documentation:
 
 - [Laravel Documentation](https://laravel.com/docs)
 - [Blade Templating Engine](https://laravel.com/docs/blade)
@@ -155,54 +171,43 @@ npm run build
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are welcome. To propose a change:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Fork the repository.
+2. Create a new feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m 'Add your feature description'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request against the main branch.
 
----
-
-## 🐛 Bug Reports & Issues
-
-Found a bug? Please create an issue on GitHub with:
-- Clear description of the bug
-- Steps to reproduce the issue
-- Expected behavior
-- Actual behavior
-- Screenshots (if applicable)
-- Your environment details (PHP version, OS, etc.)
+Please ensure your code is well-tested and follows the existing code style before submitting.
 
 ---
 
-## 📄 License
+## Bug Reports
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+To report a bug, open an issue on GitHub and include the following details:
 
----
-
-## 👤 Author
-
-**Ruben Lima**
-- GitHub: [@Ruben-Lima-1BTIS](https://github.com/Ruben-Lima-1BTIS)
-
----
-
-## 🚀 Quick Commands Reference
-
-| Command | Purpose |
-|---------|---------|
-| `php artisan serve` | Start development server |
-| `php artisan migrate` | Run database migrations |
-| `php artisan tinker` | Interactive shell |
-| `npm run dev` | Build assets for development |
-| `npm run build` | Build assets for production |
-| `php artisan cache:clear` | Clear application cache |
+- A clear description of the problem.
+- Steps to reproduce the issue.
+- Expected and actual behaviour.
+- Screenshots, if applicable.
+- Your environment details (PHP version, operating system, etc.).
 
 ---
 
-**Last Updated:** 2026-04-18 15:38:19
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for full details.
+
+---
+
+## Author
+
+**Ruben Lima**  
+GitHub: [@Ruben-Lima-1BTIS](https://github.com/Ruben-Lima-1BTIS)
+
+---
+
+*Last updated: 2026-04-18*
