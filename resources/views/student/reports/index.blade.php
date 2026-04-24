@@ -83,7 +83,7 @@
 
                                     <tr class="border-t border-gray-300 transition-colors duration-150 hover:bg-gray-100">
                                         <td class="px-3 py-3 text-[0.85rem] text-black">
-                                            <a href="" class="file-link" download>
+                                            <a href="{{ asset($report->file_path) }}" class="file-link" target="_blank">
                                                 {{ $report->original_name }}
                                             </a>
                                         </td>
