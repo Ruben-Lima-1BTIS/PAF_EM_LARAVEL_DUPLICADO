@@ -17,6 +17,14 @@ class Report extends Model
 
     public $timestamps = false;
 
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+            'reviewed_at' => 'datetime',
+        ];
+    }
+
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id')
