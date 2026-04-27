@@ -38,7 +38,6 @@ class DashboardService
     {
         $coordinatorId = auth()->id();
 
-        // turmas do coordenador
         $classIds = UserClass::where('user_id', $coordinatorId)->pluck('class_id');
         $classes = ClassModel::whereIn('id', $classIds)->get();
 
@@ -50,7 +49,6 @@ class DashboardService
             ];
         }
 
-        // pegar os students usando a tabela user_classes
         $studentIds = UserClass::whereIn('class_id', $classIds)
             ->whereHas('user', fn($q) => $q->where('role', User::ROLE_STUDENT))
             ->pluck('user_id')
@@ -64,13 +62,11 @@ class DashboardService
             ];
         }
 
-        // students
         $students = User::whereIn('id', $studentIds)
             ->where('role', User::ROLE_STUDENT)
             ->get()
             ->keyBy('id');
 
-        // internships onde estao os students
         $internships = Internship::whereHas('studentAssignments', function ($q) use ($studentIds) {
             $q->whereIn('user_id', $studentIds);
         })
@@ -85,7 +81,6 @@ class DashboardService
             ->groupBy('user_id')
             ->map(fn($items) => $items->first()['internship']);
 
-        // atribuir as hours a cada student
         $hoursByStudent = Hour::whereIn('student_id', $studentIds)
             ->selectRaw('
             student_id,
@@ -96,13 +91,11 @@ class DashboardService
             ->get()
             ->groupBy('student_id');
 
-        // atribuir os reports a cada student
         $reportsCount = Report::whereIn('student_id', $studentIds)
             ->selectRaw('student_id, COUNT(*) as total')
             ->groupBy('student_id')
             ->pluck('total', 'student_id');
 
-        // cria map dos dados
         $classData = $classes->map(function ($class) use ($students, $hoursByStudent, $reportsCount, $internships, $classIds) {
             $classStudentIds = UserClass::where('class_id', $class->id)
                 ->pluck('user_id');
