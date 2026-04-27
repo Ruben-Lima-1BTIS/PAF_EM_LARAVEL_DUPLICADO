@@ -12,7 +12,7 @@ class Report extends Model
         'file_path',
         'original_name',
         'status',
-        'supervisor_reviewed_by',
+        'coordinator_reviewed_by',
     ];
 
     public $timestamps = false;
@@ -30,7 +30,7 @@ class Report extends Model
 
     public function reviewer()
     {
-        return $this->belongsTo(User::class, 'supervisor_reviewed_by')
-            ->where('role', 'supervisor');
+        return $this->belongsTo(User::class, 'coordinator_reviewed_by')
+            ->where('role', 'coordinator');
     }
 }

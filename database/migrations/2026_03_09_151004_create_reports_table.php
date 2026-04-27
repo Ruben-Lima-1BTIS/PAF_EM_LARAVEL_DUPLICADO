@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id(); // AUTO_INCREMENT
+            $table->id();
 
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('internship_id');
@@ -23,17 +23,14 @@ return new class extends Migration
             $table->enum('status', ['pending', 'approved', 'rejected'])
                 ->default('pending');
 
-            $table->unsignedBigInteger('supervisor_reviewed_by')->nullable();
-            $table->string('supervisor_comment', 1000)->nullable();
+            $table->unsignedBigInteger('coordinator_reviewed_by')->nullable();
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('reviewed_at')->nullable();
 
-            // Indexes
             $table->index(['student_id', 'internship_id']);
             $table->index('status');
 
-            // Foreign keys
             $table->foreign('student_id')
                 ->references('id')->on('users')
                 ->cascadeOnDelete();
@@ -42,7 +39,7 @@ return new class extends Migration
                 ->references('id')->on('internships')
                 ->restrictOnDelete();
 
-            $table->foreign('supervisor_reviewed_by')
+            $table->foreign('coordinator_reviewed_by')
                 ->references('id')->on('users')
                 ->nullOnDelete();
         });

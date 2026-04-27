@@ -15,10 +15,8 @@ class ReportController extends Controller
     {
         $student = Auth::user();
 
-        // Get the student's active internship
         $internship = $student->internships()->first();
 
-        // Fetch reports for this student + internship
         $reports = Report::where('student_id', $student->id)
             ->where('internship_id', $internship->id)
             ->orderBy('created_at', 'desc')
@@ -31,9 +29,6 @@ class ReportController extends Controller
         ]);
     }
 
-    /**
-     * Store a new report.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -43,20 +38,17 @@ class ReportController extends Controller
 
         $student = Auth::user();
 
-        // Store file
         $file     = $request->file('report_file');
         $filename = time() . '_' . $file->getClientOriginalName();
         $path     = $file->storeAs('reports', $filename, 'public');
 
-        // Create report entry
         Report::create([
             'student_id'            => $student->id,
             'internship_id'         => $request->internship_id,
             'file_path'             => 'storage/' . $path,
             'original_name'         => $file->getClientOriginalName(),
             'status'                => 'pending',
-            'supervisor_reviewed_by' => null,
-            'supervisor_comment'    => null,
+            'coordinator_reviewed_by' => null,
             'created_at'            => now(),
         ]);
 
