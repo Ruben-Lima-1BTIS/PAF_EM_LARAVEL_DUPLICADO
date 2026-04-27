@@ -9,6 +9,7 @@ use App\Http\Controllers\LoghourController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HourApprovalController;
+use App\Http\Controllers\ReportApprovalController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
 
@@ -55,7 +56,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware('role:coordinator')->group(function () {
-        // Create the routes for the coordinators (still not sure about the check reports part, don't know if it should be up to the coordinator or the supervisor to check the reports)    
+        Route::get('/report-approval', [ReportApprovalController::class, 'index'])->name('coordinator.reports.index');
+        Route::post('/report-approval/{id}/approve', [ReportApprovalController::class, 'approve'])->name('report.approve');
+        Route::post('/report-approval/{id}/reject', [ReportApprovalController::class, 'reject'])->name('report.reject');
     });
 
     Route::middleware('role:supervisor')->group(function () {
