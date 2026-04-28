@@ -5,12 +5,12 @@
     <div class="bg-white border border-gray-200 rounded-xl p-8 w-full max-w-md shadow-sm">
 
         <div class="mb-6 text-center">
-            <div class="mx-auto mb-4 h-12 w-12 rounded-full bg-neutral-100 flex items-center justify-center">
+            <div class="mx-auto mb-4 h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
                 <x-fas-lock class="h-6 w-6 text-slate-700" />
             </div>
 
             <h2 class="text-xl font-semibold">Change your password</h2>
-            <p class="text-gray-500 text-sm mt-1">
+            <p class="text-slate-700 text-sm mt-1">
                 For security reasons, you must update your password before continuing.
             </p>
         </div>
@@ -39,13 +39,13 @@
             </div>
 
             <div class="pt-2">
-                <x-submit-button type="submit" color="bg-neutral-400 hover:bg-neutral-400">
+                <x-submit-button type="submit" color="bg-blue-600 hover:bg-blue-600">
                     Change Password
                 </x-submit-button>
             </div>
         </form>
 
-        <p class="text-xs text-gray-600 text-center mt-6">
+        <p class="text-xs text-slate-700 text-center mt-6">
             <span>Your new password must be at least 8 characters long.</span>
         </p>
     </div>
