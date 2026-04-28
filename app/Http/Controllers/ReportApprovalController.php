@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportApprovalController extends Controller
 {
-
-    // --- Private helpers ---
-
     private function handleReview(int $id, string $status): RedirectResponse
     {
         $report = Report::findOrFail($id);

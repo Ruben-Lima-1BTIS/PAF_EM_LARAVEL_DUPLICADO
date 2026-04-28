@@ -40,5 +40,8 @@
     </div>
 </div>
 
-<x-report-review-modal />
+<x-report-review-modal
+    approve-url="{{ route('report.approve', ['id' => '__ID__']) }}"
+    reject-url="{{ route('report.reject', ['id' => '__ID__']) }}"
+/>
 @endsection
