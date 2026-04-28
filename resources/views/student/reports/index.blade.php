@@ -62,9 +62,6 @@
                                         Reviewed By</th>
                                     <th
                                         class="px-3 py-2 text-[0.7rem] font-semibold tracking-[0.1em] uppercase text-[#424242] text-left">
-                                        Comment</th>
-                                    <th
-                                        class="px-3 py-2 text-[0.7rem] font-semibold tracking-[0.1em] uppercase text-[#424242] text-left">
                                         Submitted</th>
                                 </tr>
                             </thead>
@@ -100,10 +97,6 @@
                                             @else
                                                 <span class="text-gray-200">—</span>
                                             @endif
-                                        </td>
-                                        <td class="px-3 py-3 text-[0.85rem] text-black truncate max-w-[200px]"
-                                            title="{{ $report->supervisor_comment }}">
-                                            {{ $report->supervisor_comment ?? '—' }}
                                         </td>
                                         <td class="px-3 py-3 text-[0.85rem] text-black">
                                             {{ $report->created_at }}

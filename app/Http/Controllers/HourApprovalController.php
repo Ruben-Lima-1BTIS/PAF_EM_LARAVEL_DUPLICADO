@@ -63,8 +63,14 @@ class HourApprovalController extends Controller
 
             $pendingHours  = (clone $baseQuery)->where('status', 'pending')->orderByDesc('date')->get();
             $approvedHours = (clone $baseQuery)->where('status', 'approved')->orderByDesc('reviewed_at')->get();
+            $approvedHoursCut10 = $approvedHours->take(10);
+            $pendingHoursCut10 = $pendingHours->take(10);
             $totalRejected = (clone $baseQuery)->where('status', 'rejected')->count();
             $allHours      = $baseQuery->get();
+
+            /*
+                'totalApprovedCut10' => $approvedHoursCut10->count(),
+            */ 
 
             $stats = [
                 'student'            => User::find($selectedStudentId),
@@ -80,7 +86,8 @@ class HourApprovalController extends Controller
             'cleanedStudents',
             'selectedStudentId',
             'pendingHours',
-            'approvedHours',
+            'pendingHoursCut10',
+            'approvedHoursCut10',
             'stats',
         ));
     }

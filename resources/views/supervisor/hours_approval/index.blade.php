@@ -23,7 +23,6 @@
 		</div>
 
 		@if($stats)
-		<!-- componentes -->
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
 			<x-stat-card title="Student Name" :value="$stats['student']->name" color="gray" />
 			<x-stat-card title="Pending" :value="$stats['totalPending']" color="yellow" />
@@ -33,21 +32,16 @@
 			<x-stat-card title="Approved Hours" :value="$stats['approvedHoursCount'].'h'" color="green" />
 		</div>
 
-		<!-- tabelas agora são componentes -->
-		
-		<x-pending-hours-table :hours="$pendingHours" />
-		<x-approved-hours-table :hours="$approvedHours" />
+		<x-pending-hours-table :hours="$pendingHoursCut10" />
+		<x-approved-hours-table :hours="$approvedHoursCut10" />
 
 		@else
-		<!-- estado vazio -->
 		<x-empty-state message="Please select a student to view their hours" />
-
 		@endif
 
 	</div>
 </div>
 
-<!-- Modals agora são componentes -->
 <x-approve-modal />
 <x-reject-modal />
 
