@@ -4,7 +4,7 @@
 
     <div class="mb-6">
         <h2 class="text-2xl font-semibold text-gray-800 tracking-tight">Management Tools</h2>
-        <p class="text-sm text-gray-400 mt-0.5">Create and manage system resources</p>
+        <p class="text-sm text-gray-600 mt-0.5">Create and manage system resources</p>
     </div>
 
     <x-tabs :tabs="[

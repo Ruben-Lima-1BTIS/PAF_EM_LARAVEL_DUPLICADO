@@ -12,7 +12,7 @@
     @else
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+            <thead class="bg-blue-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Duration</th>
@@ -23,7 +23,7 @@
 
             <tbody class="divide-y divide-gray-200">
                 @foreach($hours as $hour)
-                <tr class="hover:bg-gray-50">
+                <tr class="hover:bg-blue-50">
 
                     <td class="px-6 py-4 text-sm text-gray-600">
                         {{ \Carbon\Carbon::parse($hour->date)->format('M d, Y') }}

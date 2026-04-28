@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-blue-50">
     <div class="max-w-6xl mx-auto p-6 space-y-8 fade-up">
 
         <x-page-header title="Log Hours" subtitle="Track and manage your internship time" />
@@ -20,7 +20,7 @@
                           <div><x-input name="start_time" type="time" label="Start" required /></div>
                           <div><x-input name="end_time" type="time" label="End" required /></div>
                         </div>
-                        <x-submit-button type="submit" color="bg-neutral-300 hover:bg-neutral-450 text-black">
+                        <x-submit-button type="submit" color="bg-blue-600 hover:bg-blue-600">
                             Log Hours
                         </x-submit-button>
                     </form>

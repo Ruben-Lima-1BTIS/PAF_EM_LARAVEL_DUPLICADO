@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-blue-50 py-12 px-4 sm:px-6 lg:px-8">
 	<div class="max-w-6xl mx-auto">
 
 		<div class="mb-8">
@@ -27,7 +27,6 @@
 			<x-stat-card title="Student Name" :value="$stats['student']->name" color="gray" />
 			<x-stat-card title="Pending" :value="$stats['totalPending']" color="yellow" />
 			<x-stat-card title="Approved" :value="$stats['totalApproved']" color="green" />
-			<x-stat-card title="Rejected" :value="$stats['totalRejected']" color="red" />
 			<x-stat-card title="Total Hours Logged" :value="$stats['totalHoursLogged'].'h'" color="blue" />
 			<x-stat-card title="Approved Hours" :value="$stats['approvedHoursCount'].'h'" color="green" />
 		</div>

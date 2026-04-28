@@ -14,8 +14,8 @@
         </div>
 
         @isset($icon)
-            <div class="bg-neutral-200 rounded-full p-3">
-                <x-dynamic-component :component="$icon" class="w-6 h-6 text-slate-700" />
+            <div class="bg-blue-200 rounded-full p-3">
+                <x-dynamic-component :component="$icon" class="w-6 h-6 text-blue-700" />
             </div>
         @endisset
 

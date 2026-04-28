@@ -47,7 +47,7 @@
                             <p class="text-gray-400 text-center py-8">No students in this class.</p>
                         @else
                             <table class="w-full text-sm text-left text-gray-700">
-                                <thead class="text-xs uppercase bg-gray-50 text-gray-500 border-b">
+                                <thead class="text-xs uppercase bg-blue-50 text-gray-500 border-b">
                                     <tr>
                                         <th class="px-4 py-3">Student</th>
                                         <th class="px-4 py-3">Internship</th>
@@ -59,7 +59,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($class['students'] as $student)
-                                        <tr class="border-b hover:bg-gray-50">
+                                        <tr class="border-b hover:bg-blue-50">
                                             <td class="px-4 py-3 text-slate-900 font-semibold">
                                                 {{ $student['name'] }}</td>
                                             <td class="px-4 py-3 text-slate-900 font-semibold">

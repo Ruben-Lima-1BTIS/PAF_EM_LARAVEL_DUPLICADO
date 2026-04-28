@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-blue-50">
         <div class="max-w-6xl mx-auto p-6 space-y-8 fade-up">
 
             <x-page-header title="Submit Report" subtitle="Upload your internship progress reports" />
@@ -29,7 +29,7 @@
                                 <div id="file-name-display"></div>
                             </div>
 
-                            <x-submit-button type="submit" color="bg-neutral-300 hover:bg-neutral-450 text-black">
+                            <x-submit-button type="submit" color="bg-blue-600 hover:bg-blue-600">
                                 Submit Report
                             </x-submit-button>
                         </form>

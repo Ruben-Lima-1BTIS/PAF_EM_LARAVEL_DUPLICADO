@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-blue-50">
         <div class="max-w-6xl mx-auto p-6 space-y-8 fade-up">
             <x-page-header title="Settings" subtitle="Manage your account and application preferences" />
 
@@ -87,7 +87,7 @@
                             <button 
                                 type="button" 
                                 onclick="closePasswordModal()"
-                                class="flex-1 px-4 py-2 bg-gray-100 hover:bg-neutral-400 text-gray-700 font-medium rounded-lg transition"
+                                class="flex-1 px-4 py-2 bg-gray-100 hover:bg-blue-400 text-gray-700 font-medium rounded-lg transition"
                             >
                                 Cancel
                             </button>

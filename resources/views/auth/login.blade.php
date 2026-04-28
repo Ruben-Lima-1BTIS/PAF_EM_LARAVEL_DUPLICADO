@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('section')
-    <div class="min-h-screen bg-gray-50">
+    <div class="min-h-screen bg-blue-50">
 
         @include('landing.auth-navbar')
 
@@ -27,7 +27,7 @@
                         <x-input name="password" label="Password" type="password" required autocomplete="current-password"
                             placeholder="Enter your password" />
 
-                        <x-submit-button type="submit" color="bg-neutral-400 hover:bg-neutral-400"> Login </x-submit-button>
+                        <x-submit-button type="submit" color="bg-blue-600 hover:bg-blue-600" > Login </x-submit-button>
                     </form>
                 </x-auth-card>
 
