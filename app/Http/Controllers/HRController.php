@@ -33,7 +33,9 @@ class HRController extends Controller
         return view('hr.delete-records', [
             'coordinators' => User::where('role', User::ROLE_COORDINATOR)->get(),
             'supervisors' => User::where('role', User::ROLE_SUPERVISOR)->get(),
-            'students' => User::where('role', User::ROLE_STUDENT)->with('userClass')->get(),
+            'students' => User::where('role', User::ROLE_STUDENT)
+                ->with(['userClass', 'internships'])
+                ->get(),
             'companies' => Company::all(),
             'classes' => ClassModel::all(),
             'internships' => Internship::all(),
