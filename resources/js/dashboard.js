@@ -12,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const chartFont = { size: 16, weight: '600' };
 
     const colors = {
-        danger: '#c71616',
-        warning: '#db8f0a',
-        success: '#117554',
-        neutral: '#8c8e91',
-        primary: '#1f62ce',
+        danger: '#DC2626',
+        warning: '#CA8A04',
+        success: '#16A34A',
+        neutral: '#b0b3b6',
+        primary: '#286cda',
     };
 
     const charts = [];
