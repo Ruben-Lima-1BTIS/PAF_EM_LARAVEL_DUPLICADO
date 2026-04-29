@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('section')
-    <div class="min-h-screen bg-blue-50">
+    <div class="min-h-screen bg-gray-50">
 
         @include('landing.auth-navbar')
 

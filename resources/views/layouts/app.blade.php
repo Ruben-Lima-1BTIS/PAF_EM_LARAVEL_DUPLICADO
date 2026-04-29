@@ -17,7 +17,7 @@
     }
 </style>
 
-<body class="bg-blue-50">
+<body class="bg-gray-50">
 
     <div class="fixed bottom-5 right-5 z-50 flex flex-col space-y-3 items-end">
 

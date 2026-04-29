@@ -78,7 +78,7 @@
 
                 <div class="relative flex items-center">
                     <button onclick="document.getElementById('userDropdown').classList.toggle('hidden')"
-                        class="flex items-center gap-2 px-[0.85rem] py-[0.45rem] rounded-[0.6rem] font-medium text-[0.9rem] text-slate-900 bg-transparent transition-colors hover:bg-blue-50 cursor-pointer">
+                        class="flex items-center gap-2 px-[0.85rem] py-[0.45rem] rounded-[0.6rem] font-medium text-[0.9rem] text-slate-900 bg-transparent transition-colors hover:bg-gray-50 cursor-pointer">
                         <span>{{ auth()->user()->name }}</span>
                         <x-dynamic-component :component="'fas-chevron-down'" class="w-3 h-3 text-blue-950" />
                     </button>

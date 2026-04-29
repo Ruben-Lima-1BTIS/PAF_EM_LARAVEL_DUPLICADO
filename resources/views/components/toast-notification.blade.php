@@ -60,7 +60,7 @@
 
     <button
         @click="show = false"
-        class="flex items-center justify-center w-8 h-8 rounded-md text-slate-400 bg-transparent cursor-pointer shrink-0 transition-colors hover:bg-blue-50 hover:text-blue-600"
+        class="flex items-center justify-center w-8 h-8 rounded-md text-slate-400 bg-transparent cursor-pointer shrink-0 transition-colors hover:bg-gray-50 hover:text-blue-600"
     >
         <x-dynamic-component :component="'fas-xmark'" class="w-4 h-4" />
     </button>

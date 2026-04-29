@@ -10,7 +10,7 @@
     $base = "max-w-[60%] px-4 py-3 rounded-2xl relative text-[0.875rem] leading-[1.25rem]";
 
     $styles = $isUser
-        ? "bg-blue-500 text-white self-end rounded-br-[0.25rem]
+        ? "bg-gray-500 text-white self-end rounded-br-[0.25rem]
            after:content-[''] after:absolute after:w-0 after:h-0
            after:border-l-[8px] after:border-l-blue-500
            after:border-y-[8px] after:border-y-transparent

@@ -2,7 +2,7 @@
 
 @section('section')
 
-<div class="bg-blue-50 min-h-screen flex items-center justify-center px-4">
+<div class="bg-gray-50 min-h-screen flex items-center justify-center px-4">
 
     <div class="bg-white border border-gray-200 rounded-xl p-8 w-full max-w-md shadow-sm text-center">
 

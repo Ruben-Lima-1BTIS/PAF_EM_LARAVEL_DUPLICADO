@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="min-h-screen bg-blue-50">
+<div class="min-h-screen bg-gray-50">
     <div class="max-w-6xl mx-auto p-6 space-y-8 fade-up">
 
         <x-page-header title="Log Hours" subtitle="Track and manage your internship time" />

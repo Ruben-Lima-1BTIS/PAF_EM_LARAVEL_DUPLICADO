@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('section')
 
-    <div class="bg-blue-50 min-h-screen">
+    <div class="bg-gray-50 min-h-screen">
 
         @include('landing.navbar')
 

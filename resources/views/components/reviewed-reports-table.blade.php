@@ -5,7 +5,7 @@
     </div>
     <div class="overflow-x-auto">
         <table class="w-full">
-            <thead class="bg-blue-50 border-b border-gray-200">
+            <thead class="bg-gray-50 border-b border-gray-200">
                 <tr>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Internship</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">File</th>
@@ -16,7 +16,7 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
                 @foreach($reports as $report)
-                <tr class="hover:bg-blue-50">
+                <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 text-sm text-gray-900">{{ $report->internship->title }}</td>
                     <td class="px-6 py-4 text-sm text-gray-600">{{ $report->original_name }}</td>
                     <td class="px-6 py-4 text-sm text-gray-600">{{ $report->reviewer->name ?? 'N/A' }}</td>
