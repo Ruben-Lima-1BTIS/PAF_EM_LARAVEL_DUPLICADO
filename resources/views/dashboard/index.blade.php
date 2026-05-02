@@ -21,7 +21,7 @@
     @elseif($user->isCoordinator())
         @php
             $classOptions = collect($stats['classes'])
-                ->map(fn($c) => ['id' => $c['id'], 'name' => $c['sigla'] . ' — ' . $c['course']])
+                ->map(fn($c) => ['id' => $c['id'], 'name' => $c['sigla']])
                 ->toArray();
         @endphp
 
